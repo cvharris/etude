@@ -4,7 +4,7 @@ export default function CardFront({ renderedText }) {
 
   return (
     <div className="card">
-      <div>{renderedText}</div>
+      <div dangerouslySetInnerHTML={{ __html: renderedText }}></div>
     </div>
   )
 };

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import marked from 'marked'
 import './App.css'
 import CardBack from './components/CardBack'
 import CardFront from './components/CardFront';
@@ -15,7 +16,7 @@ class App extends Component {
   onTextChange = (rawText) => {
     this.setState({
       rawText: rawText,
-      rendered: rawText
+      rendered: marked(rawText)
     })
   }
 
