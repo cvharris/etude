@@ -1,9 +1,11 @@
 import React from 'react'
+import Card from './Card';
 
-export default function CardBack({ rawText, handleUpdate }) {
+export default function CardBack({ side, rawText, handleUpdate, renderedText }) {
   return (
-    <div className="card">
-      <textarea value={rawText} onChange={(e) => handleUpdate(e.target.value)}></textarea>
+    <div className="card-back">
+      <h1>Back</h1>
+      <Card rawText={rawText} handleUpdate={(value) => handleUpdate(side, value)} renderedText={renderedText} />
     </div>
   )
 }
