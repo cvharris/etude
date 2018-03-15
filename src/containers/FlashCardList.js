@@ -6,14 +6,13 @@ export default class FlashCardList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      flashCards: [],
       filterString: ''
     }
 
-    this.filterCards = this.filterCards.bind(this)
+    this.filterCardList = this.filterCardList.bind(this)
   }
 
-  filterCards(e) {
+  filterCardList(e) {
     const filterString = e.target.value
     this.setState({
       flashCards: this.state.flashCards.filter(card => card.title.indexOf(filterString) > 0),
@@ -26,15 +25,17 @@ export default class FlashCardList extends Component {
       <div className="bg-white flex-grow-1 b--black br">
         <div className="filter-cards flex items-center">
           <label>
-            <input placeholder="Search..." className="input-reset ml3 mv2 br2 b--light-gray" value={this.state.filterString} onChange={this.filterCards} />
+            <input placeholder="Search..." className="input-reset ml3 mv2 br2 b--light-gray" value={this.state.filterString} onChange={this.filterCardList} />
           </label>
-          <div className="pointer gray hover-dark-gray pv2 ph3">
+          <div className="pointer gray hover-dark-gray pv2 ph3" onClick={this.props.handleAddCard}>
             <FontAwesomeIcon icon="plus-square" />
           </div>
         </div>
-        {this.state.flashCards.map((card, i) =>
-          <CardListItem card={card} key={i} />
-        )}
+        <div className="current-card-list">
+          {this.props.flashCards.map((card, i) =>
+            <CardListItem handleSelect={this.props.handleSwitchCard} card={card} key={i} />
+          )}
+        </div>
       </div>
     );
   }

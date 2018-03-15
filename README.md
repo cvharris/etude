@@ -11,7 +11,7 @@ Flash card generator with superpowers
 - Print flash cards onto actual index cards
 
 ## TODO
-- [ ] Adds Bear-like layout with Tags sidebar and list of cards seondary sidebar
+- [x] Adds Bear-like layout with Tags sidebar and list of cards seondary sidebar
 - [ ] Ability to add flash cards
 - [ ] Ability to select flash cards from a list and edit them
 - [ ] Save cards to a local storage

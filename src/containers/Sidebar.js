@@ -15,7 +15,10 @@ export default class Sidebar extends Component {
   render() {
     return (
       <div className="bg-dark-gray flex-grow-1 white">
-        <h4 className="bg-red fw4 f5 ph3 pv2 nowrap"><FontAwesomeIcon icon="window-restore" /> Flash Cards</h4>
+        <h4 className="bg-red fw4 f5 ph3 pv2 nowrap pointer">
+          <FontAwesomeIcon icon="window-restore" />
+          <span className="pl2">Flash Cards</span>
+        </h4>
         <div className="tags-list">
           {this.state.tags.map((tag, i) =>
             <TagListItem tag={tag} key={i} />
