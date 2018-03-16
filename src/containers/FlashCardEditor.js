@@ -14,6 +14,12 @@ class FlashCardEditor extends Component {
     this.handleUpdateCard = debounce(this.handleUpdateCard.bind(this), 2000)
   }
 
+  componentWillUpdate(newProps) {
+    if (newProps.flashCard.id !== this.props.flashCard.id) {
+      this.props.saveCard(this.props.flashCard)
+    }
+  }
+
   handleUpdateCard() {
     this.props.saveCard(this.props.flashCard)
   }
@@ -43,23 +49,6 @@ class FlashCardEditor extends Component {
         } renderedText={flashCard.front.renderedText} />
       </div>
     )
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleCardTitleUpdate: (cardTitle) => {
-      dispatch(handleCardTitleUpdate(cardTitle))
-    },
-    handleCardFrontUpdate: (cardFront) => {
-      dispatch(handleCardFrontUpdate(cardFront))
-    },
-    handleCardBackUpdate: (cardBack) => {
-      dispatch(handleCardBackUpdate(cardBack))
-    },
-    handleSaveCard: (flashCard) => {
-      dispatch(saveCard(flashCard))
-    }
   }
 }
 
