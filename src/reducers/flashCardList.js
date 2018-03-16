@@ -9,14 +9,14 @@ export default (state = initialState, action) => {
     case 'SAVE_CARD':
       const found = state.flashCards.filter(card => card.id === action.payload.id)
       const newCardList = !found.length
-        ? [...state.flashCards, action.payload]
+        ? (action.payload.title || action.payload.back.rawText || action.payload.front.rawText ? [...state.flashCards, action.payload] : state.flashCards)
         : state.flashCards.map(card => card.id === action.payload.id ? action.payload : card)
       return {
         ...state,
         flashCards: newCardList,
         activeCardId: action.payload.id,
         currentFlashCards: !found.length
-          ? [...state.currentFlashCards, action.payload]
+          ? (action.payload.title || action.payload.back.rawText || action.payload.front.rawText ? [...state.currentFlashCards, action.payload] : state.flashCards)
           : state.currentFlashCards.map(card => card.id === action.payload.id ? action.payload : card)
       }
     case 'CHANGE_TAG':

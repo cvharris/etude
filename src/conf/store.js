@@ -1,10 +1,10 @@
 import { combineReducers, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-// import throttle from 'lodash/throttle'
+import throttle from 'lodash/throttle'
 import flashCardEditor from '../reducers/flashCardEditor';
 import flashCardList from '../reducers/flashCardList';
 import sidebar from '../reducers/sidebar';
-// import { saveState } from './localStorage'
+import { saveState } from './localStorage'
 
 const configureStore = (persistedState) => {
   const store = createStore(combineReducers({
@@ -13,11 +13,11 @@ const configureStore = (persistedState) => {
     sidebar,
   }), persistedState, composeWithDevTools())
 
-  // store.subscribe(throttle(() => {
-  //   saveState({
-  //     contactList: store.getState().contactList
-  //   })
-  // }, 1000))
+  store.subscribe(throttle(() => {
+    saveState({
+      flashCardList: store.getState().flashCardList
+    })
+  }, 1000))
 
   return store
 }
