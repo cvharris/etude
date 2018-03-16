@@ -1,55 +1,68 @@
 import React, { Component } from 'react'
 import CardBack from '../components/CardBack'
 import CardFront from '../components/CardFront';
-import markdownit from 'markdown-it';
-import FlashCard from '../lib/FlashCard';
-import { debounce } from 'lodash'
-
-const md = new markdownit()
+import debounce from 'lodash/debounce'
+import { connect } from 'react-redux';
+import { handleCardTitleUpdate, handleCardFrontUpdate, handleCardBackUpdate } from '../actions/flashCardEditorActions';
+import { saveCard } from '../actions/flashCardListActions'
 
 class FlashCardEditor extends Component {
+
   constructor(props) {
     super(props)
 
-    this.state = this.props.currentlyEditing || new FlashCard()
-
-    this.broadcastChanges = debounce(this.broadcastChanges.bind(this), 2000)
+    this.handleUpdateCard = debounce(this.handleUpdateCard.bind(this), 2000)
   }
 
-  onCardTextChange = (key, rawText) => {
-    this.setState({
-      ...this.state,
-      [key]: {
-        rawText: rawText,
-        rendered: md.render(rawText)
-      }
-    }, this.broadcastChanges)
-  }
-
-  onTitleChange = (e) => {
-    this.setState({
-      ...this.state,
-      title: e.target.value
-    }, this.broadcastChanges)
-  }
-
-  broadcastChanges() {
-    this.props.handleFlashCardUpdates(this.state)
+  handleUpdateCard() {
+    this.props.saveCard(this.props.flashCard)
   }
 
   render() {
+    const { flashCard } = this.props
     return (
       <div className="app-background flex-auto mh3">
         <div className="card-header flex items-center">
           <label>
-            <input placeholder="Title..." className="input-reset ml3 mv2 br2 b--light-gray" value={this.state.title} onChange={this.onTitleChange} />
+            <input placeholder="Title..." className="input-reset ml3 mv2 br2 b--light-gray" value={flashCard.title} onChange={(e) => {
+              this.props.handleCardTitleUpdate(e.target.value)
+              this.handleUpdateCard()
+            }
+            } />
           </label>
         </div>
-        <CardBack side="back" rawText={this.state.back.rawText} handleUpdate={this.onCardTextChange} renderedText={this.state.back.rendered} />
-        <CardFront side="front" rawText={this.state.front.rawText} handleUpdate={this.onCardTextChange} renderedText={this.state.front.rendered} />
+        <CardBack rawText={flashCard.back.rawText} handleUpdate={(backText) => {
+          this.props.handleCardBackUpdate(backText)
+          this.handleUpdateCard()
+        }
+        } renderedText={flashCard.back.renderedText} />
+        <CardFront rawText={flashCard.front.rawText} handleUpdate={(frontText) => {
+          this.props.handleCardFrontUpdate(frontText)
+          this.handleUpdateCard()
+        }
+        } renderedText={flashCard.front.renderedText} />
       </div>
     )
   }
 }
 
-export default FlashCardEditor
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleCardTitleUpdate: (cardTitle) => {
+      dispatch(handleCardTitleUpdate(cardTitle))
+    },
+    handleCardFrontUpdate: (cardFront) => {
+      dispatch(handleCardFrontUpdate(cardFront))
+    },
+    handleCardBackUpdate: (cardBack) => {
+      dispatch(handleCardBackUpdate(cardBack))
+    },
+    handleSaveCard: (flashCard) => {
+      dispatch(saveCard(flashCard))
+    }
+  }
+}
+
+export default connect(state => ({
+  flashCard: state.flashCardEditor
+}), { handleCardTitleUpdate, handleCardFrontUpdate, handleCardBackUpdate, saveCard })(FlashCardEditor)

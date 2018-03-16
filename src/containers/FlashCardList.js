@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import CardListItem from "../components/CardListItem";
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { connect } from "react-redux"
+import { newFlashCard, switchCard } from '../actions/flashCardListActions'
 
-export default class FlashCardList extends Component {
+class FlashCardList extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -27,16 +29,23 @@ export default class FlashCardList extends Component {
           <label>
             <input placeholder="Search..." className="input-reset ml3 mv2 br2 b--light-gray" value={this.state.filterString} onChange={this.filterCardList} />
           </label>
-          <div className="pointer gray hover-dark-gray pv2 ph3" onClick={this.props.handleAddCard}>
+          <div className="pointer gray hover-dark-gray pv2 ph3" onClick={this.props.newFlashCard}>
             <FontAwesomeIcon icon="plus-square" />
           </div>
         </div>
         <div className="current-card-list">
           {this.props.flashCards.map((card, i) =>
-            <CardListItem handleSelect={this.props.handleSwitchCard} card={card} key={i} />
+            // TODO: add conditional rendering so we only show those with active tag
+            <CardListItem handleSelect={this.props.switchCard} card={card} key={i} />
           )}
         </div>
       </div>
     );
   }
 }
+
+export default connect(state => ({
+  activeTag: state.sidebar.activeTag,
+  flashCards: state.flashCardList.flashCards,
+  currentFlashCards: state.flashCardList.currentFlashCards
+}), { newFlashCard, switchCard })(FlashCardList)
