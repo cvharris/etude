@@ -1,12 +1,16 @@
 export const initialState = {
   flashCards: [],
   activeCardId: '',
-  currentFlashCards: []
+  currentFlashCards: [],
+  previouslyDeletedCard: null
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'SAVE_CARD':
+      if (state.previouslyDeletedCard && state.previouslyDeletedCard.id === action.payload.id) {
+        return state
+      }
       const found = state.flashCards.filter(card => card.id === action.payload.id)
       const newCardList = !found.length
         ? (action.payload.title || action.payload.back.rawText || action.payload.front.rawText ? [...state.flashCards, action.payload] : state.flashCards)
@@ -35,6 +39,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         activeCardId: ''
+      }
+    case 'DELETE_CARD':
+      return {
+        ...state,
+        previouslyDeletedCard: action.payload,
+        activeCardId: state.activeCardId === action.payload.id ? '' : state.activeCardId,
+        flashCards: state.flashCards.filter(card => card.id !== action.payload.id),
+        currentFlashCards: state.currentFlashCards.filter(card => card.id !== action.payload.id)
       }
     default:
       return state

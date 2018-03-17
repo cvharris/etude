@@ -30,6 +30,8 @@ export default (state = initialState, action) => {
           renderedText: md.render(action.payload)
         }
       }
+    case 'DELETE_CARD':
+      return action.payload.id === state.id ? new FlashCard() : state
     default:
       return state
   }
