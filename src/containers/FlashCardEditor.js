@@ -11,7 +11,7 @@ class FlashCardEditor extends Component {
   constructor(props) {
     super(props)
 
-    this.handleUpdateCard = debounce(this.handleUpdateCard.bind(this), 2000)
+    this.handleUpdateCard = debounce(this.handleUpdateCard.bind(this), 1250)
   }
 
   componentWillUpdate(newProps) {
@@ -37,16 +37,16 @@ class FlashCardEditor extends Component {
             } />
           </label>
         </div>
-        <CardBack rawText={flashCard.back.rawText} handleUpdate={(backText) => {
-          this.props.handleCardBackUpdate(backText)
-          this.handleUpdateCard()
-        }
-        } renderedText={flashCard.back.renderedText} />
         <CardFront rawText={flashCard.front.rawText} handleUpdate={(frontText) => {
           this.props.handleCardFrontUpdate(frontText)
           this.handleUpdateCard()
         }
         } renderedText={flashCard.front.renderedText} />
+        <CardBack rawText={flashCard.back.rawText} handleUpdate={(backText) => {
+          this.props.handleCardBackUpdate(backText)
+          this.handleUpdateCard()
+        }
+        } renderedText={flashCard.back.renderedText} />
       </div>
     )
   }

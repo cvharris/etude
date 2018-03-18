@@ -1,4 +1,4 @@
-import FlashCard from "../lib/FlashCard"
+import FlashCard from '../lib/FlashCard'
 import { md } from '../lib/markdown'
 
 export const initialState = new FlashCard()

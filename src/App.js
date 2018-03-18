@@ -16,7 +16,6 @@ class App extends Component {
 
   componentWillMount() {
     const persistedState = loadState()
-    console.log(persistedState)
     this.setState({
       store: configureStore(persistedState),
       isStoreLoading: false,
