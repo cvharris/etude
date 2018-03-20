@@ -1,7 +1,8 @@
 import FlashCard from '../lib/FlashCard'
-import { md } from '../lib/markdown'
+import Markdown from '../lib/markdown'
 
 export const initialState = new FlashCard()
+const md = new Markdown()
 
 export default (state = initialState, action) => {
   switch (action.type) {

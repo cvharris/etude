@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import CardBack from '../components/CardBack'
-import CardFront from '../components/CardFront';
+import CardFront from '../components/CardFront'
 import debounce from 'lodash/debounce'
-import { connect } from 'react-redux';
-import { handleCardTitleUpdate, handleCardFrontUpdate, handleCardBackUpdate } from '../actions/flashCardEditorActions';
+import { connect } from 'react-redux'
+import { handleCardTitleUpdate, handleCardFrontUpdate, handleCardBackUpdate } from '../actions/flashCardEditorActions'
 import { saveCard } from '../actions/flashCardListActions'
 
 class FlashCardEditor extends Component {
@@ -27,7 +27,7 @@ class FlashCardEditor extends Component {
   render() {
     const { flashCard } = this.props
     return (
-      <div className="app-background flex-auto mh3">
+      <div id="editor" className="app-background flex-auto mh3">
         <div className="card-header flex items-center">
           <label>
             <input placeholder="Title..." className="input-reset ml3 mv2 br2 b--light-gray" value={flashCard.title} onChange={(e) => {

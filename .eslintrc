@@ -5,6 +5,9 @@
     "node": true,
     "es6": true
   },
+  "extends": [
+    "plugin:react/recommended"
+  ],
   "globals": {
     "DocumentFragment": true
   },
@@ -52,6 +55,9 @@
       {
         "properties": "never"
       }
+    ],
+    "react/prop-types": [
+      0
     ]
   }
 }
