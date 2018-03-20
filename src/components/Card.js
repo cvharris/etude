@@ -1,6 +1,6 @@
 import React from 'react'
-import Editor from './Editor';
-import Preview from './Preview';
+import Editor from './Editor'
+import Preview from './Preview'
 
 export default function Card({ rawText, handleUpdate, renderedText }) {
   return (
