@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import CardListItem from "../components/CardListItem";
+import React, { Component } from 'react'
+import CardListItem from '../components/CardListItem'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import { connect } from "react-redux"
+import { connect } from 'react-redux'
 import { newFlashCard, switchCard, deleteCard } from '../actions/flashCardListActions'
+import PrintCards from '../lib/PrintCards'
 
 class FlashCardList extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class FlashCardList extends Component {
     }
 
     this.filterCardList = this.filterCardList.bind(this)
+    this.printFlashCards = this.printFlashCards.bind(this)
   }
 
   filterCardList(e) {
@@ -20,6 +22,10 @@ class FlashCardList extends Component {
       flashCards: this.state.flashCards.filter(card => card.title.indexOf(filterString) > 0),
       filterString
     })
+  }
+
+  printFlashCards() {
+    const printed = new PrintCards(this.props.flashCards)
   }
 
   render() {
@@ -32,6 +38,9 @@ class FlashCardList extends Component {
           <div className="pointer gray hover-dark-gray pv2 ph3" onClick={this.props.newFlashCard}>
             <FontAwesomeIcon icon="plus-square" />
           </div>
+          <div className="pointer gray hover-dark-gray pv2 ph3" onClick={this.printFlashCards}>
+            <FontAwesomeIcon icon="print" />
+          </div>
         </div>
         <div className="current-card-list">
           {this.props.flashCards.map((card, i) =>
@@ -40,7 +49,7 @@ class FlashCardList extends Component {
           )}
         </div>
       </div>
-    );
+    )
   }
 }
 
