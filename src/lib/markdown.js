@@ -9,12 +9,10 @@ class Markdown {
     const defaultOptions = {
       typographer: true,
       linkify: true,
-      html: false,
+      html: true,
       xhtmlOut: false,
       breaks: false,
-      highlight: function (str, lang) {
-        return ''
-      }
+      highlight: (str, lang) => ''
     }
     const updatedOptions = Object.assign(defaultOptions, options)
     this.md = markdownit(updatedOptions)
@@ -49,8 +47,19 @@ class Markdown {
 
   render(content) {
     if (!isString(content)) content = ''
-    return this.md.render(content)
+    const rendered = this.md.render(content)
+    const el = document.createElement('div')
+    el.innerHTML = rendered
+    el.style = 'font-size:14pt;padding:1pc;text-align:center;display:flex;align-items:center;justify-content:center;height:16pc;width:28pc;'
+    return el.outerHTML
   }
+
+  // el.style['font-size'] = '14pt'
+  // el.style['padding'] = '1pc'
+  // el.style['text-align'] = 'center'
+  // el.style['display'] = 'flex'
+  // el.style['align-items'] = 'center'
+  // el.style['justify-content'] = 'center'
 
 }
 
