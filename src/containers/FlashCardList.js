@@ -16,6 +16,12 @@ class FlashCardList extends Component {
     this.printFlashCards = this.printFlashCards.bind(this)
   }
 
+  componentWillMount() {
+    if (!!this.props.activeCardId) {
+      this.props.switchCard(this.props.flashCards.filter(card => card.id === this.props.activeCardId)[0])
+    }
+  }
+
   filterCardList(e) {
     const filterString = e.target.value
     this.setState({
@@ -25,12 +31,12 @@ class FlashCardList extends Component {
   }
 
   printFlashCards() {
-    const printed = new PrintCards(this.props.flashCards)
+    new PrintCards(this.props.flashCards)
   }
 
   render() {
     return (
-      <div className="bg-white flex-grow-1 b--black br">
+      <div className="flash-card-list bg-white flex-grow-1 b--black br">
         <div className="filter-cards flex items-center bb b--light-gray">
           <label>
             <input placeholder="Search..." className="input-reset ml3 mv2 br2 b--light-gray" value={this.state.filterString} onChange={this.filterCardList} />
@@ -56,5 +62,6 @@ class FlashCardList extends Component {
 export default connect(state => ({
   activeTag: state.sidebar.activeTag,
   flashCards: state.flashCardList.flashCards,
-  currentFlashCards: state.flashCardList.currentFlashCards
+  currentFlashCards: state.flashCardList.currentFlashCards,
+  activeCardId: state.flashCardList.activeCardId,
 }), { newFlashCard, switchCard, deleteCard })(FlashCardList)
