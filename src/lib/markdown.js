@@ -48,6 +48,7 @@ class Markdown {
   render(content) {
     if (!isString(content)) content = ''
     const rendered = this.md.render(content)
+    console.log(rendered)
     const el = document.createElement('div')
     el.innerHTML = rendered
     el.style = 'font-size:14pt;padding:1pc;text-align:center;display:flex;align-items:center;justify-content:center;height:16pc;width:28pc;'

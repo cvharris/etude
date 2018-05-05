@@ -28,6 +28,11 @@ body {
   justify-content: center;
 }
 
+.card em:before, .card em:after {
+  content: '*';
+  position: relative;
+}
+
 .card-wrapper {
   height: 100%;
 }
