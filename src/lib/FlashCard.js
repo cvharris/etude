@@ -6,10 +6,10 @@ export default function FlashCard() {
   this.tags = []
   this.front = {
     rawText: '',
-    rendered: ''
+    renderedText: ''
   }
   this.back = {
     rawText: '',
-    rendered: ''
+    renderedText: ''
   }
 }

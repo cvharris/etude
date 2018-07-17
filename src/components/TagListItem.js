@@ -1,4 +1,5 @@
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 
 export default function TagListItem({ tag, key }) {
   return (
@@ -6,4 +7,9 @@ export default function TagListItem({ tag, key }) {
       <div className="tag-name">{tag.name}</div>
     </div>
   )
+}
+
+TagListItem.propTypes = {
+  tag: PropTypes.string,
+  key: PropTypes.string
 }

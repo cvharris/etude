@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types'
 import React from 'react'
-import Card from './Card'
+// import Card from './Card'
 import ContentEditor from './ContentEditor'
 
 export default function CardFront({ rawText, handleUpdate, renderedText }) {
@@ -8,8 +9,18 @@ export default function CardFront({ rawText, handleUpdate, renderedText }) {
       <h1>Front</h1>
       {/* <Card rawText={rawText} handleUpdate={(value) => handleUpdate(value)} renderedText={renderedText} /> */}
       <div className="card">
-        <ContentEditor html={renderedText} onChange={handleUpdate} />
+        <ContentEditor
+          rawText={rawText}
+          html={renderedText}
+          onChange={handleUpdate}
+        />
       </div>
     </div>
   )
+}
+
+CardFront.propTypes = {
+  rawText: PropTypes.string,
+  handleUpdate: PropTypes.func,
+  renderedText: PropTypes.string
 }

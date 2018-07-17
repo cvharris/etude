@@ -1,0 +1,52 @@
+{
+  "flashCardList": {
+    "flashCards": [
+      {
+        "id": "9cbdba6f-1a5a-477f-86a9-4349ee39dfbb",
+        "title": "GMAT Study Card ",
+        "tags": [],
+        "front": {
+          "rawText": "err\n\n",
+          "renderedText":
+            "<div style=\"font-size: 14pt; padding: 1pc; text-align: center; display: flex; align-items: center; justify-content: center; height: 16pc; width: 28pc;\"><p>err</p>\n</div>"
+        },
+        "back": {
+          "rawText": "$x^2$",
+          "renderedText":
+            "<div style=\"font-size: 14pt; padding: 1pc; text-align: center; display: flex; align-items: center; justify-content: center; height: 16pc; width: 28pc;\"><p><span class=\"katex\"><span class=\"katex-mathml\"><math><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding=\"application/x-tex\">x^2</annotation></semantics></math></span><span class=\"katex-html\" aria-hidden=\"true\"><span class=\"strut\" style=\"height:0.8141079999999999em;\"></span><span class=\"strut bottom\" style=\"height:0.8141079999999999em;vertical-align:0em;\"></span><span class=\"base\"><span class=\"mord\"><span class=\"mord mathit\">x</span><span class=\"msupsub\"><span class=\"vlist-t\"><span class=\"vlist-r\"><span class=\"vlist\" style=\"height:0.8141079999999999em;\"><span style=\"top:-3.063em;margin-right:0.05em;\"><span class=\"pstrut\" style=\"height:2.7em;\"></span><span class=\"sizing reset-size6 size3 mtight\"><span class=\"mord mtight\">2</span></span></span></span></span></span></span></span></span></span></span></p>\n</div>"
+        }
+      }
+    ],
+    "activeCardId": "9cbdba6f-1a5a-477f-86a9-4349ee39dfbb",
+    "currentFlashCards": [
+      {
+        "id": "9cbdba6f-1a5a-477f-86a9-4349ee39dfbb",
+        "title": "GMAT Study Card ",
+        "tags": [],
+        "front": {
+          "rawText": "err\n\n",
+          "renderedText":
+            "<div style=\"font-size: 14pt; padding: 1pc; text-align: center; display: flex; align-items: center; justify-content: center; height: 16pc; width: 28pc;\"><p>err</p>\n</div>"
+        },
+        "back": {
+          "rawText": "$x^2$",
+          "renderedText":
+            "<div style=\"font-size: 14pt; padding: 1pc; text-align: center; display: flex; align-items: center; justify-content: center; height: 16pc; width: 28pc;\"><p><span class=\"katex\"><span class=\"katex-mathml\"><math><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding=\"application/x-tex\">x^2</annotation></semantics></math></span><span class=\"katex-html\" aria-hidden=\"true\"><span class=\"strut\" style=\"height:0.8141079999999999em;\"></span><span class=\"strut bottom\" style=\"height:0.8141079999999999em;vertical-align:0em;\"></span><span class=\"base\"><span class=\"mord\"><span class=\"mord mathit\">x</span><span class=\"msupsub\"><span class=\"vlist-t\"><span class=\"vlist-r\"><span class=\"vlist\" style=\"height:0.8141079999999999em;\"><span style=\"top:-3.063em;margin-right:0.05em;\"><span class=\"pstrut\" style=\"height:2.7em;\"></span><span class=\"sizing reset-size6 size3 mtight\"><span class=\"mord mtight\">2</span></span></span></span></span></span></span></span></span></span></span></p>\n</div>"
+        }
+      }
+    ],
+    "previouslyDeletedCard": {
+      "id": "a7063b50-cc49-43b4-90a5-a93be91d987f",
+      "title": "",
+      "tags": [],
+      "front": {
+        "rawText": "Bark Bark Bark",
+        "renderedText": "<p>Bark Bark Bark</p>\n"
+      },
+      "back": {
+        "rawText": "What sound does a doggy make?",
+        "renderedText": "<p>What sound does a doggy make?</p>\n"
+      }
+    }
+  }
+}

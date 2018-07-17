@@ -1,19 +1,13 @@
-import React from 'react'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 
 let stripNbsp = str => str.replace(/&nbsp;|\u202F|\u00A0/g, ' ')
 
-export default class ContentEditable extends React.Component {
-  constructor() {
-    super()
-    this.emitChange = this.emitChange.bind(this)
-  }
-
-  render() {
-    var { html } = this.props
-
-    return (
-      <div ref={(e) => this.htmlEl = e} onInput={this.emitChange} onBlur={this.props.onBlur || this.emitChange} contentEditable="true" dangerouslySetInnerHTML={{ __html: html }}></div>
-    )
+export default class ContentEditable extends Component {
+  static propTypes = {
+    html: PropTypes.string,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func
   }
 
   shouldComponentUpdate(nextProps) {
@@ -46,9 +40,23 @@ export default class ContentEditable extends React.Component {
     }
   }
 
-  emitChange(evt) {
+  emitChange = () => {
     if (!this.htmlEl) return
     this.props.onChange(this.htmlEl.innerText)
     this.lastHtml = this.htmlEl.innerHTML
+  }
+
+  render() {
+    let { html } = this.props
+
+    return (
+      <div
+        ref={e => (this.htmlEl = e)}
+        onInput={this.emitChange}
+        onBlur={this.props.onBlur || this.emitChange}
+        contentEditable="true"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    )
   }
 }

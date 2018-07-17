@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import FlashCardEditor from '../containers/FlashCardEditor';
+import React, { Component } from 'react'
+import FlashCardEditor from '../containers/FlashCardEditor'
+import FlashCardList from '../containers/FlashCardList'
 import Sidebar from '../containers/Sidebar'
-import FlashCardList from '../containers/FlashCardList';
 
 export default class Etude extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -23,22 +22,28 @@ export default class Etude extends Component {
     const found = this.state.flashCards.filter(card => card.id === flashCard.id)
 
     if (!found.length) {
-      if (flashCard.title || flashCard.front.rawText || flashCard.back.rawText) {
+      if (
+        flashCard.title ||
+        flashCard.front.rawText ||
+        flashCard.back.rawText
+      ) {
         this.setState({
           ...this.state,
           flashCards: [...this.state.flashCards, flashCard],
           currentFlashCards: [...this.state.currentFlashCards, flashCard],
-          currentlyEditing: flashCard,
+          currentlyEditing: flashCard
         })
       }
     } else {
-      const newList = this.state.flashCards.map(card => card.id === flashCard.id ? flashCard : card)
+      const newList = this.state.flashCards.map(
+        card => (card.id === flashCard.id ? flashCard : card)
+      )
 
       this.setState({
         ...this.state,
         flashCards: newList,
         currentFlashCards: this.filterFlashCards(newList),
-        currentlyEditing: flashCard,
+        currentlyEditing: flashCard
       })
     }
   }
@@ -62,7 +67,9 @@ export default class Etude extends Component {
       return newList
     }
 
-    return newList.filter(card => card.tags.some(tag => tag.name === this.state.activeTag))
+    return newList.filter(card =>
+      card.tags.some(tag => tag.name === this.state.activeTag)
+    )
   }
 
   render() {

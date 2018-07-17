@@ -5,8 +5,13 @@ class PrintCards {
   constructor(cards = []) {
     this.cardsToPrint = cards
     const html = cards.reduce((pdfHtml, card, i) => {
-      const frontHtml = i === 0 ? card.front.renderedText : this.addPageBreak(card.front.renderedText)
-      return `${pdfHtml}${frontHtml}${this.addPageBreak(card.back.renderedText)}`
+      const frontHtml =
+        i === 0
+          ? card.front.renderedText
+          : this.addPageBreak(card.front.renderedText)
+      return `${pdfHtml}${frontHtml}${this.addPageBreak(
+        card.back.renderedText
+      )}`
     }, '')
     html2pdf(this.htmlToElement(html), {
       jsPDF: {
@@ -22,7 +27,7 @@ class PrintCards {
   }
 
   htmlToElement(html) {
-    var template = document.createElement('div')
+    let template = document.createElement('div')
     html = html.trim() // Never return a text node of whitespace as the result
     html = `<div>${html}</div>`
     template.innerHTML = html

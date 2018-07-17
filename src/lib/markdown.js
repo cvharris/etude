@@ -1,10 +1,9 @@
-import markdownit from 'markdown-it'
-import math from 'markdown-it-math'
 import katex from 'katex'
 import isString from 'lodash/isString'
+import markdownit from 'markdown-it'
+import math from 'markdown-it-math'
 
 class Markdown {
-
   constructor(options) {
     const defaultOptions = {
       typographer: true,
@@ -17,32 +16,30 @@ class Markdown {
     const updatedOptions = Object.assign(defaultOptions, options)
     this.md = markdownit(updatedOptions)
 
-    this.md
-      .disable(['heading', 'table', 'code'])
-      .use(math, {
-        inlineOpen: '$',
-        inlineClose: '$',
-        blockOpen: '$$',
-        blockClose: '$$',
-        inlineRenderer: function (str) {
-          let output = ''
-          try {
-            output = katex.renderToString(str.trim())
-          } catch (err) {
-            output = `<span class="katex-error">${err.message}</span>`
-          }
-          return output
-        },
-        blockRenderer: function (str) {
-          let output = ''
-          try {
-            output = katex.renderToString(str.trim(), { displayMode: true })
-          } catch (err) {
-            output = `<div class="katex-error">${err.message}</div>`
-          }
-          return output
+    this.md.disable(['heading', 'table', 'code']).use(math, {
+      inlineOpen: '$',
+      inlineClose: '$',
+      blockOpen: '$$',
+      blockClose: '$$',
+      inlineRenderer: function(str) {
+        let output = ''
+        try {
+          output = katex.renderToString(str.trim())
+        } catch (err) {
+          output = `<span class="katex-error">${err.message}</span>`
         }
-      })
+        return output
+      },
+      blockRenderer: function(str) {
+        let output = ''
+        try {
+          output = katex.renderToString(str.trim(), { displayMode: true })
+        } catch (err) {
+          output = `<div class="katex-error">${err.message}</div>`
+        }
+        return output
+      }
+    })
   }
 
   render(content) {
@@ -51,7 +48,8 @@ class Markdown {
     console.log(rendered)
     const el = document.createElement('div')
     el.innerHTML = rendered
-    el.style = 'font-size:14pt;padding:1pc;text-align:center;display:flex;align-items:center;justify-content:center;height:16pc;width:28pc;'
+    el.style =
+      'font-size:14pt;padding:1pc;text-align:center;display:flex;align-items:center;justify-content:center;height:16pc;width:28pc;'
     return el.outerHTML
   }
 
@@ -61,7 +59,6 @@ class Markdown {
   // el.style['display'] = 'flex'
   // el.style['align-items'] = 'center'
   // el.style['justify-content'] = 'center'
-
 }
 
 export default Markdown
