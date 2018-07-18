@@ -1,8 +1,7 @@
 import FlashCard from '../lib/FlashCard'
-import Markdown from '../lib/markdown'
+import markdownToHTML from '../markdowner'
 
 export const initialState = new FlashCard()
-const md = new Markdown()
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -20,7 +19,7 @@ export default (state = initialState, action) => {
         ...state,
         back: {
           rawText: action.payload,
-          renderedText: md.render(action.payload)
+          renderedText: markdownToHTML(action.payload)
         }
       }
     case 'UPDATE_CARD_FRONT':
@@ -28,7 +27,7 @@ export default (state = initialState, action) => {
         ...state,
         front: {
           rawText: action.payload,
-          renderedText: md.render(action.payload)
+          renderedText: markdownToHTML(action.payload)
         }
       }
     case 'DELETE_CARD':

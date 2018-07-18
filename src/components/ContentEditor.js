@@ -10,6 +10,10 @@ export default class ContentEditable extends Component {
     onChange: PropTypes.func
   }
 
+  state = {
+    cursorCharacter: ''
+  }
+
   shouldComponentUpdate(nextProps) {
     let { props, htmlEl } = this
 
@@ -42,8 +46,11 @@ export default class ContentEditable extends Component {
 
   emitChange = () => {
     if (!this.htmlEl) return
-    this.props.onChange(this.htmlEl.innerText)
-    this.lastHtml = this.htmlEl.innerHTML
+    const html = this.htmlEl.innerHTML
+    if (this.props.onChange && html !== this.lastHtml) {
+      this.props.onChange(this.htmlEl.innerText)
+    }
+    this.lastHtml = html
   }
 
   render() {
