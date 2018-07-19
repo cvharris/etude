@@ -19,9 +19,11 @@ Flash card generator with superpowers
 - [x] Save cards to a local storage
 
 ### Release 0.2
-- [ ] Initialize app with blank data
-- [ ] Markdown is inline, not editor vs preview
+- [x] Initialize app with blank data
+- [x] Markdown is inline, not editor vs preview
 - [ ] Refactor layout for grid and handle smaller screens (hiding sidebars)
+- [ ] Handle changing tags in the middle of text and maintaining cursor position
+- [ ] Handle new lines
 - [ ] Add LaTeX support (at least for Math)
 - [ ] Tag flash cards with hashtags like Bear
 - [ ] Selecting tags from the sidebar shows cards for that tag

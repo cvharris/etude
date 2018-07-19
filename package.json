@@ -7,12 +7,8 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.8",
     "@fortawesome/react-fontawesome": "^0.0.17",
     "html2pdf.js": "^0.8.2",
-    "katex": "^0.9.0",
+    "katex": "^0.10.0-beta",
     "lodash": "^4.17.5",
-    "markdown-it": "^8.4.1",
-    "markdown-it-math": "^4.1.0",
-    "node-uuid": "^1.4.8",
-    "rangy": "^1.3.0",
     "react": "^16.2.0",
     "react-contenteditable": "^2.0.7",
     "react-dom": "^16.2.0",
@@ -21,7 +17,8 @@
     "react-scripts": "1.1.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.3.0",
-    "tachyons": "^4.9.1"
+    "tachyons": "^4.9.1",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -31,7 +28,6 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.104",
-    "@types/markdown-it": "^0.0.4",
     "@types/react": "^16.4.0",
     "@types/react-fontawesome": "^1.6.2",
     "@types/react-redux": "^5.0.15",

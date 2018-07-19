@@ -8,8 +8,7 @@ import {
   handleCardTitleUpdate
 } from '../actions/flashCardEditorActions'
 import { cardSaved } from '../actions/flashCardListActions'
-import CardBack from '../components/CardBack'
-import CardFront from '../components/CardFront'
+import Card from '../components/Card'
 import FlashCard from '../lib/FlashCard'
 
 class FlashCardEditor extends Component {
@@ -56,7 +55,8 @@ class FlashCardEditor extends Component {
             />
           </label>
         </div>
-        <CardFront
+        <Card
+          side="Front"
           rawText={flashCard.front.rawText}
           handleUpdate={frontText => {
             this.props.handleCardFrontUpdate(frontText)
@@ -64,7 +64,8 @@ class FlashCardEditor extends Component {
           }}
           renderedText={flashCard.front.renderedText}
         />
-        <CardBack
+        <Card
+          side="Back"
           rawText={flashCard.back.rawText}
           handleUpdate={backText => {
             this.props.handleCardBackUpdate(backText)

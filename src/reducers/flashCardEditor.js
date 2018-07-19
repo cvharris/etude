@@ -1,5 +1,5 @@
 import FlashCard from '../lib/FlashCard'
-import markdownToHTML from '../markdowner'
+import markdownToHTML from '../lib/markdowner'
 
 export const initialState = new FlashCard()
 

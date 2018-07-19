@@ -1,4 +1,5 @@
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 export default function CardListItem({ card, handleSelect, handleDelete }) {
@@ -32,4 +33,10 @@ export default function CardListItem({ card, handleSelect, handleDelete }) {
       </div>
     </div>
   )
+}
+
+CardListItem.propTypes = {
+  card: PropTypes.object,
+  handleSelect: PropTypes.func,
+  handleDelete: PropTypes.func
 }

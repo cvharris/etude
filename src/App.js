@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
+import '../node_modules/katex/dist/katex.min.css'
 import './App.css'
 import { loadState } from './conf/localStorage'
 import configureStore from './conf/store'

@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Editor from './Editor'
-import Preview from './Preview'
+import ContentEditor from './ContentEditor'
 
-export default function Card({ rawText, handleUpdate, renderedText }) {
+export default function Card({ rawText, handleUpdate, renderedText, side }) {
   return (
-    <div className="side-by-side">
-      <Editor rawText={rawText} handleUpdate={handleUpdate} />
-      <Preview renderedText={renderedText} />
+    <div className="card-back">
+      <h1>{side}</h1>
+      <div className="card card-size">
+        <ContentEditor
+          rawText={rawText}
+          html={renderedText}
+          onChange={handleUpdate}
+        />
+      </div>
     </div>
   )
 }
@@ -15,5 +20,6 @@ export default function Card({ rawText, handleUpdate, renderedText }) {
 Card.propTypes = {
   rawText: PropTypes.string,
   handleUpdate: PropTypes.func,
-  renderedText: PropTypes.string
+  renderedText: PropTypes.string,
+  side: PropTypes.string
 }

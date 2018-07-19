@@ -1,7 +1,10 @@
+import katex from 'katex'
+
 export const tokenTypes = {
   _: 'ITALIC',
   '*': 'BOLD',
   '⌘': 'CARET',
+  $: 'MATH',
   '\n': 'NEWLINE'
 }
 
@@ -13,6 +16,7 @@ export class Token {
 }
 
 export function tokenize(stringToTokenize = '') {
+  // TODO: loop through tokenTypes and find matching pairs, then wrap text in HTML tags
   function indexOrEnd(str, char) {
     const index = str.indexOf(char)
     return index === -1 ? str.length : index
@@ -56,6 +60,11 @@ export function parser(tokenArray) {
         break
       case 'BOLD':
         parsedString = `<strong>*${token.content}*</strong>`
+        break
+      case 'MATH':
+        parsedString = `<span class="math">$${katex.renderToString(
+          token.content
+        )}$</span>`
         break
       case 'CARET':
         parsedString = `<span id="caret-position"></span>`
