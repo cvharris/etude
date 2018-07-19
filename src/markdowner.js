@@ -1,6 +1,7 @@
 export const tokenTypes = {
   _: 'ITALIC',
   '*': 'BOLD',
+  '⌘': 'CARET',
   '\n': 'NEWLINE'
 }
 
@@ -56,6 +57,9 @@ export function parser(tokenArray) {
       case 'BOLD':
         parsedString = `<strong>*${token.content}*</strong>`
         break
+      case 'CARET':
+        parsedString = `<span id="caret-position"></span>`
+        break
       default:
         parsedString = token.content
     }
@@ -64,5 +68,5 @@ export function parser(tokenArray) {
 }
 
 export default function markdownToHTML(str = '') {
-  return `<p style="height: 100%; width: 100%;">${parser(tokenize(str))}</p>`
+  return `<p class="card-size">${parser(tokenize(str))}</p>`
 }

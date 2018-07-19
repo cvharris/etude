@@ -30,13 +30,13 @@ class FlashCardList extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.activeCardId) {
-      this.props.switchCard(
-        this.props.flashCards.filter(
-          card => card.id === this.props.activeCardId
-        )[0]
-      )
-    }
+    // if (this.props.activeCardId) {
+    //   this.props.switchCard(
+    //     this.props.flashCards.filter(
+    //       card => card.id === this.props.activeCardId
+    //     )[0]
+    //   )
+    // }
   }
 
   filterCardList(e) {

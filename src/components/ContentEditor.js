@@ -11,7 +11,7 @@ export default class ContentEditable extends Component {
   }
 
   state = {
-    cursorCharacter: ''
+    cursorCharacter: null
   }
 
   shouldComponentUpdate(nextProps) {
@@ -42,13 +42,41 @@ export default class ContentEditable extends Component {
       // rerendering) did not update the DOM. So we update it manually now.
       this.htmlEl.innerHTML = this.props.html
     }
+    const derp = document.getElementById('caret-position')
+    if (derp && this.state.cursorCharacter) {
+      const s = window.getSelection()
+      if (s.rangeCount > 0) s.removeAllRanges()
+      const range = document.createRange()
+      range.setStart(derp, this.state.cursorCharacter.endOffset)
+      range.collapse(true)
+      s.addRange(range)
+      derp.parentNode.removeChild(derp)
+    }
   }
 
   emitChange = () => {
     if (!this.htmlEl) return
+    const derp = document.getElementById('caret-position')
+    if (derp) {
+      derp.parentNode.removeChild(derp)
+    }
     const html = this.htmlEl.innerHTML
+    let caretPosition = null
+    if (window.getSelection().rangeCount > 0) {
+      const derp = window.getSelection().getRangeAt(0)
+      const cursorCharacter = !derp.endContainer.localName
+        ? derp.endContainer.data
+        : derp.endContainer.innerText
+      caretPosition = cursorCharacter
+      this.setState({
+        cursorCharacter
+      })
+    }
     if (this.props.onChange && html !== this.lastHtml) {
-      this.props.onChange(this.htmlEl.innerText)
+      const newText = caretPosition
+        ? this.htmlEl.innerText.replace(caretPosition, `${caretPosition}⌘⌘`)
+        : this.htmlEl.innerText
+      this.props.onChange(newText)
     }
     this.lastHtml = html
   }

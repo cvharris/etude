@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         back: {
-          rawText: action.payload,
+          rawText: action.payload.replace('⌘⌘', ''),
           renderedText: markdownToHTML(action.payload)
         }
       }
@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         front: {
-          rawText: action.payload,
+          rawText: action.payload.replace('⌘⌘', ''),
           renderedText: markdownToHTML(action.payload)
         }
       }

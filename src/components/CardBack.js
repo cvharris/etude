@@ -6,7 +6,7 @@ export default function CardBack({ rawText, handleUpdate, renderedText }) {
   return (
     <div className="card-back">
       <h1>Back</h1>
-      <div className="card">
+      <div className="card card-size">
         <ContentEditor
           rawText={rawText}
           html={renderedText}
