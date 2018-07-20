@@ -1,10 +1,10 @@
 import katex from 'katex'
 
 export const tokenTypes = {
-  _: {
+  '/': {
     name: 'ITALIC',
-    start: '<em>_',
-    end: '_</em>',
+    start: '<em>/',
+    end: '/</em>',
     collapsable: false,
     processor: null
   },
@@ -12,6 +12,27 @@ export const tokenTypes = {
     name: 'BOLD',
     start: '<strong>*',
     end: '*</strong>',
+    collapsable: false,
+    processor: null
+  },
+  _: {
+    name: 'UNDERLINE',
+    start: '<u>_',
+    end: '_</u>',
+    collapsable: false,
+    processor: null
+  },
+  '\n': {
+    name: 'NEWLINE',
+    start: '<p class="card-size"><span class="newline">→</span>',
+    end: '</p>',
+    collapsable: false,
+    processor: null
+  },
+  '→': {
+    name: 'NEWLINE',
+    start: '<p class="card-size"><span class="newline">→</span>',
+    end: '</p>',
     collapsable: false,
     processor: null
   },
@@ -35,13 +56,6 @@ export const tokenTypes = {
     end: '</span>',
     collapsable: true,
     processor: null
-  },
-  '\n': {
-    name: 'NEWLINE',
-    start: '',
-    end: '',
-    collapsable: false,
-    processor: null
   }
 }
 
@@ -64,7 +78,7 @@ function replaceTokenWithHtml(matchNTokens, match) {
 function replaceStringWithTokenized(str, token) {
   const tokenType = getTokenType(token)
   const reg = new RegExp(
-    `\\${token}(.${tokenType.collapsable ? '*' : '+'}?)\\${token}`,
+    `\\${token}([^\\${token}]${tokenType.collapsable ? '*' : '+'}?)\\${token}`,
     'g'
   )
   return str.replace(reg, replaceTokenWithHtml)
