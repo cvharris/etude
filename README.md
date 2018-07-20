@@ -21,11 +21,12 @@ Flash card generator with superpowers
 ### Release 0.2
 - [x] Initialize app with blank data
 - [x] Markdown is inline, not editor vs preview
+- [x] Handle changing tags in the middle of text and maintaining cursor position
+- [x] Handles extra whitespace from being added
+- [x] Can write katex into markdown to convert to html
 - [ ] Refactor layout for grid and handle smaller screens (hiding sidebars)
-- [ ] Handle changing tags in the middle of text and maintaining cursor position
 - [ ] Handle new lines
-- [ ] Add LaTeX support (at least for Math)
 - [ ] Tag flash cards with hashtags like Bear
 - [ ] Selecting tags from the sidebar shows cards for that tag
 - [ ] Text auto-resizes the more content is added
-- [ ] Handles extra whitespace from being added
+- [ ] Ability to use keyboard keys to traverse mathml annotations and edit expressions while rendered

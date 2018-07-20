@@ -39,6 +39,7 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.7.0",
+    "jest-enzyme": "^6.0.2",
     "prettier": "github:prettier/prettier",
     "prop-types": "^15.6.2",
     "redux-devtools-extension": "^2.13.2"

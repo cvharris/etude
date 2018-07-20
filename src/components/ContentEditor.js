@@ -42,53 +42,71 @@ export default class ContentEditable extends Component {
       // rerendering) did not update the DOM. So we update it manually now.
       this.htmlEl.innerHTML = this.props.html
     }
-    const derp = document.getElementById('caret-position')
-    if (derp && this.state.cursorCharacter) {
+    const caret = document.getElementById('caret-position')
+    if (caret && this.state.cursorCharacter) {
       const s = window.getSelection()
       if (s.rangeCount > 0) s.removeAllRanges()
       const range = document.createRange()
-      range.setStart(derp, this.state.cursorCharacter.endOffset)
+      range.setStart(caret, 0)
       range.collapse(true)
       s.addRange(range)
-      derp.parentNode.removeChild(derp)
+      caret.parentNode.removeChild(caret)
     }
   }
 
   emitChange = () => {
     if (!this.htmlEl) return
-    const derp = document.getElementById('caret-position')
-    if (derp) {
-      derp.parentNode.removeChild(derp)
+    const caret = document.getElementById('caret-position')
+    if (caret) {
+      caret.parentNode.removeChild(caret)
     }
     const html = this.htmlEl.innerHTML
-    let caretPosition = null
-    if (window.getSelection().rangeCount > 0) {
-      const derp = window.getSelection().getRangeAt(0)
-      const cursorCharacter = !derp.endContainer.localName
-        ? derp.endContainer.data
-        : derp.endContainer.innerText
-      caretPosition = cursorCharacter
-      this.setState({
-        cursorCharacter
-      })
-    }
+    const sel = window.getSelection()
+    const cursorCharacter = !sel.focusNode.localName
+      ? sel.focusNode.data
+      : sel.focusNode.innerText
+    this.setState({
+      cursorCharacter
+    })
     if (this.props.onChange && html !== this.lastHtml) {
-      const newText = caretPosition
-        ? this.htmlEl.innerText.replace(caretPosition, `${caretPosition}⌘⌘`)
+      const mathhtml = document.getElementsByClassName('katex-html')
+      while (mathhtml[0]) {
+        mathhtml[0].parentNode.removeChild(mathhtml[0])
+      }
+      const newText = cursorCharacter
+        ? this.htmlEl.innerText.replace(
+            cursorCharacter,
+            `${cursorCharacter.substr(
+              0,
+              sel.focusOffset
+            )}⌘⌘${cursorCharacter.substr(sel.focusOffset)}`
+          )
         : this.htmlEl.innerText
       this.props.onChange(newText)
     }
     this.lastHtml = html
   }
 
+  onBlur = () => {
+    if (!this.htmlEl) return
+    const html = this.htmlEl.innerHTML
+    if (this.props.onChange && html !== this.lastHtml) {
+      const mathhtml = document.getElementsByClassName('katex-html')
+      while (mathhtml[0]) {
+        mathhtml[0].parentNode.removeChild(mathhtml[0])
+      }
+      this.props.onChange(this.htmlEl.innerText)
+    }
+    this.lastHtml = html
+  }
+
   render() {
     let { html } = this.props
-
     return (
       <div
         ref={e => (this.htmlEl = e)}
         onInput={this.emitChange}
-        onBlur={this.props.onBlur || this.emitChange}
+        onBlur={this.onBlur}
         contentEditable="true"
         dangerouslySetInnerHTML={{ __html: html }}
       />
