@@ -21,6 +21,27 @@ body {
   padding: 0 1pc;
 }
 
+#editor {
+  display: grid;
+  grid-template-areas: 'header' 'toggle' 'editor';
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px auto 1fr;
+}
+
+#card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+}
+
+@media screen and (min-width: calc(12in + 475px)) {
+  #card-grid {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .card-editor {
   cursor: text;
 }

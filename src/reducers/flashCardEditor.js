@@ -1,6 +1,15 @@
 import FlashCard from '../lib/FlashCard'
 import Markdown from '../lib/markdown'
 
+export const handleCardFrontUpdate = cardFront => ({
+  type: 'UPDATE_CARD_FRONT',
+  payload: cardFront
+})
+export const handleCardBackUpdate = cardBack => ({
+  type: 'UPDATE_CARD_BACK',
+  payload: cardBack
+})
+
 const md = new Markdown()
 export const initialState = new FlashCard()
 
@@ -10,11 +19,6 @@ export default (state = initialState, action) => {
       return new FlashCard()
     case 'SWITCH_CARD':
       return action.payload
-    case 'UPDATE_CARD_TITLE':
-      return {
-        ...state,
-        title: action.payload
-      }
     case 'UPDATE_CARD_BACK':
       return {
         ...state,

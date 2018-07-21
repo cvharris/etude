@@ -1,16 +1,41 @@
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import TagListItem from '../components/TagListItem'
+import { connect } from 'react-redux'
+import DeckListItem from '../components/DeckListItem'
+import Deck from '../lib/Deck'
+import { createDeck, removeDeck, updateDeck } from '../reducers/decks'
+import { switchDeck } from '../reducers/sidebar'
 
-export default class Sidebar extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      tags: []
+export class Sidebar extends Component {
+  static propTypes = {
+    decks: PropTypes.array,
+    activeDeckId: PropTypes.string,
+    switchDeck: PropTypes.func,
+    createDeck: PropTypes.func,
+    updateDeck: PropTypes.func,
+    removeDeck: PropTypes.func
+  }
+
+  componentDidMount() {
+    if (!this.props.decks.length) {
+      this.generateAtLeastOneDeck()
     }
   }
 
+  componentDidUpdate() {
+    if (!this.props.decks.length) {
+      this.generateAtLeastOneDeck()
+    }
+  }
+
+  generateAtLeastOneDeck = () => {
+    this.props.createDeck(new Deck({ title: 'New Deck' }))
+  }
+
   render() {
+    const { decks, activeDeckId, switchDeck } = this.props
+
     return (
       <div className="sidebar bg-dark-gray flex-grow-1 white">
         <h4 className="white f4 mv2 ph3 pv2 fw1">Etude</h4>
@@ -18,12 +43,34 @@ export default class Sidebar extends Component {
           <FontAwesomeIcon icon="window-restore" />
           <span className="pl2">Flash Cards</span>
         </h4>
-        <div className="tags-list">
-          {this.state.tags.map((tag, i) => (
-            <TagListItem tag={tag} key={i} />
+        <h4 className="fw4 mv2 f5 ph3 pv2 nowrap pointer gray">
+          <FontAwesomeIcon icon="dumbbell" />
+          <span className="pl2">Practice</span>
+        </h4>
+        <div className="deck-list bt b--gray pt3">
+          {decks.map(deck => (
+            <DeckListItem
+              deck={deck}
+              active={activeDeckId === deck.id}
+              toSwitchDeck={switchDeck}
+              key={deck.id}
+            />
           ))}
         </div>
       </div>
     )
   }
 }
+
+export default connect(
+  state => ({
+    decks: state.decks.allIds.map(deckId => state.decks.byId[deckId]),
+    activeDeckId: state.sidebar.activeDeckId
+  }),
+  {
+    switchDeck,
+    createDeck,
+    updateDeck,
+    removeDeck
+  }
+)(Sidebar)

@@ -1,11 +1,13 @@
+export const switchDeck = deckId => ({ type: 'CHANGE_DECK', payload: deckId })
+
 export const initialState = {
-  activeTag: 'all'
+  activeDeckId: ''
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'CHANGE_TAG':
-      return { activeTag: action.payload }
+    case 'CHANGE_DECK':
+      return { activeDeckId: action.payload }
     default:
       return state
   }

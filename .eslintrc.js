@@ -23,6 +23,7 @@ module.exports = {
       files: ["src/**/*"],
       rules: {
         "no-var": ["error"],
+        "no-case-declarations": "off",
         radix: ["error"],
         "prettier/prettier": "warn",
         "react/jsx-max-props-per-line": "off"

@@ -2,13 +2,13 @@ import debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { cardSaved } from '../actions/flashCardListActions'
+import Editor from '../components/Editor'
+import Preview from '../components/Preview'
 import {
   handleCardBackUpdate,
-  handleCardFrontUpdate,
-  handleCardTitleUpdate
-} from '../actions/flashCardEditorActions'
-import { cardSaved } from '../actions/flashCardListActions'
-import Card from '../components/Card'
+  handleCardFrontUpdate
+} from '../reducers/flashCardEditor'
 
 class FlashCardEditor extends Component {
   static propTypes = {
@@ -30,6 +30,7 @@ class FlashCardEditor extends Component {
   }
 
   handleUpdateCard() {
+    // TODO: get current deckId and pass that along
     this.props.cardSaved(this.props.flashCard)
   }
 
@@ -56,6 +57,7 @@ class FlashCardEditor extends Component {
   render() {
     const { flashCard } = this.props
     const { editingFront } = this.state
+    const side = editingFront ? flashCard.front : flashCard.back
 
     return (
       <div id="editor" className="app-background flex-auto mh3">
@@ -94,11 +96,9 @@ class FlashCardEditor extends Component {
             Back
           </div>
         </div>
-        <div className="">
-          <Card
-            side={editingFront ? flashCard.front : flashCard.back}
-            handleUpdate={this.renderRawText}
-          />
+        <div id="card-grid">
+          <Editor rawText={side.rawText} handleUpdate={this.renderRawText} />
+          <Preview renderedText={side.renderedText} />
         </div>
       </div>
     )
@@ -110,7 +110,6 @@ export default connect(
     flashCard: state.flashCardEditor
   }),
   {
-    handleCardTitleUpdate,
     handleCardFrontUpdate,
     handleCardBackUpdate,
     cardSaved

@@ -2,6 +2,7 @@ import throttle from 'lodash/throttle'
 import { applyMiddleware, combineReducers, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
+import decks from '../reducers/decks'
 import flashCardEditor from '../reducers/flashCardEditor'
 import flashCardList from '../reducers/flashCardList'
 import sidebar from '../reducers/sidebar'
@@ -12,7 +13,8 @@ const configureStore = persistedState => {
     combineReducers({
       flashCardEditor,
       flashCardList,
-      sidebar
+      sidebar,
+      decks
     }),
     persistedState,
     composeWithDevTools(applyMiddleware(thunk))
@@ -21,6 +23,9 @@ const configureStore = persistedState => {
   store.subscribe(
     throttle(() => {
       saveState({
+        flashCardEditor: store.getState().flashCardEditor,
+        sidebar: store.getState().sidebar,
+        decks: store.getState().decks,
         flashCardList: store.getState().flashCardList
       })
     }, 1000)

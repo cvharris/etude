@@ -36,6 +36,7 @@ export default (state = initialState, action) => {
         activeCardId: ''
       }
     case 'DELETE_CARD':
+      // TODO: if activeCardId is the deleted card, create new one
       return {
         ...state,
         previouslyDeletedCard: payload,
@@ -46,6 +47,7 @@ export default (state = initialState, action) => {
           card => card.id !== payload.id
         )
       }
+    // TODO: handle deleting a deck, should delete all cards in the deck
     default:
       return state
   }
