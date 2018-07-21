@@ -1,5 +1,6 @@
 body {
   background: #9c9c9c;
+  font-size: 18px;
 }
 
 .app-background {
@@ -26,6 +27,7 @@ body {
 
 [contenteditable] {
   outline: none;
+  display: inline-block;
   font-size: 1.3em;
   min-height: 1rem;
   min-width: 100%;
@@ -51,12 +53,11 @@ body {
 }
 
 textarea {
-  height: 100%;
   width: 100%;
-  appearance: none;
   border: 0px solid white;
+  overflow-y: hidden;
+  text-align: center;
   resize: none;
-  font-size: 14pt;
   outline: 0px solid white !important;
 }
 

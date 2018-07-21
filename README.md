@@ -5,8 +5,6 @@ Flash card generator with superpowers
 
 I made this app while studying for the GMAT to help me generate physical flash cards of my own with complex math latex as well.
 
-The design of the markdown editor was inspired by [Bear](www.bear-writer.com) which allows inline-editing with superpowers.
-
 ## Features
 - Create flash cards with markdown and LaTeX
 - Edit cards in place
@@ -18,23 +16,22 @@ The design of the markdown editor was inspired by [Bear](www.bear-writer.com) wh
 ## Roadmap
 
 ### Release 0.1
-- [x] Adds Bear-like layout with Tags sidebar and list of cards seondary sidebar
+- [x] Adds layout with sidebar and list of cards seondary sidebar
 - [x] Ability to add flash cards
 - [x] Ability to select flash cards from a list and edit them
 - [x] Save cards to a local storage
 
 ### Release 0.2 Math-Mark
 - [x] Initialize app with blank data
-- [x] Markdown is inline, not editor vs preview
 - [x] Handle changing tags in the middle of text and maintaining cursor position
 - [x] Handles extra whitespace from being added
 - [x] Can write katex into markdown to convert to html
+- [x] Blank cards should be clickable anywhere to start typing
+- [ ] Text resizes as more lines are added
 - [ ] Refactor layout for grid and handle smaller screens (hiding sidebars)
 - [ ] Cards belong to decks and can be selected from the sidebar
-- [ ] Tag flash cards can show up 
+- [ ] Tagging flash cards
 - [ ] Selecting tags from the sidebar shows cards for that tag
-- [ ] onBlur in contenteditable clears katex
-- [ ] Blank cards should be clickable anywhere to start typing
 - [ ] Handle tags with more than one character
 - [ ] Handle new lines and block-level tags (lists, math block)
 

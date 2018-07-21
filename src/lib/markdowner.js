@@ -22,17 +22,10 @@ export const tokenTypes = {
     collapsable: false,
     processor: null
   },
-  '\n': {
+  '\\r': {
     name: 'NEWLINE',
-    start: '<p class="card-size"><span class="newline"></span>',
-    end: '</p>',
-    collapsable: false,
-    processor: null
-  },
-  '→': {
-    name: 'NEWLINE',
-    start: '<p class="card-size"><span class="newline"></span>',
-    end: '</p>',
+    start: '<br />',
+    end: '',
     collapsable: false,
     processor: null
   },
@@ -95,5 +88,5 @@ export default function markdownToHTML(str = '') {
     replaceStringWithTokenized,
     sanitizedString
   )
-  return `<p class="card-size">${newStr}</p>`
+  return `<div class="card-size">${newStr}</div>`
 }

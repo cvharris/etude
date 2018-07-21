@@ -1,5 +1,4 @@
 import { v4 } from 'uuid'
-import markdownToHTML from '../lib/markdowner'
 
 export default function FlashCard() {
   this.id = v4()
@@ -7,10 +6,10 @@ export default function FlashCard() {
   this.tags = []
   this.front = {
     rawText: '',
-    renderedText: markdownToHTML('')
+    renderedText: ''
   }
   this.back = {
     rawText: '',
-    renderedText: markdownToHTML('')
+    renderedText: ''
   }
 }
