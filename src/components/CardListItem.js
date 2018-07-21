@@ -13,19 +13,19 @@ export default function CardListItem({ card, handleSelect, handleDelete }) {
           <h3 className="fw6 f5 mt0 mb3">{card.title}</h3>
           {card.front.rawText && (
             <p className="mt0 mb1 truncate">
-              <span className="fw6 pr2">Q:</span>
+              <span className="fw6 pr2">F:</span>
               {card.front.rawText}
             </p>
           )}
           {card.back.rawText && (
             <p className="mv0 truncate">
-              <span className="fw6 pr2">A:</span>
+              <span className="fw6 pr2">B:</span>
               {card.back.rawText}
             </p>
           )}
         </div>
         <div
-          className="card-list-item-delete bg-red white pa3 flex items-center"
+          className="card-list-item-delete pointer bg-red white pa3 flex items-center"
           onClick={() => handleDelete(card)}
         >
           <FontAwesomeIcon icon="trash-alt" />

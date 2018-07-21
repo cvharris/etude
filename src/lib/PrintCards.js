@@ -17,7 +17,7 @@ class PrintCards {
       jsPDF: {
         orientation: 'l',
         unit: 'in',
-        format: [5, 3]
+        format: [6, 4]
       }
     })
   }

@@ -3,50 +3,50 @@ import katex from 'katex'
 export const tokenTypes = {
   '/': {
     name: 'ITALIC',
-    start: '<em>/',
-    end: '/</em>',
+    start: '<em>',
+    end: '</em>',
     collapsable: false,
     processor: null
   },
   '*': {
     name: 'BOLD',
-    start: '<strong>*',
-    end: '*</strong>',
+    start: '<strong>',
+    end: '</strong>',
     collapsable: false,
     processor: null
   },
   _: {
     name: 'UNDERLINE',
-    start: '<u>_',
-    end: '_</u>',
+    start: '<u>',
+    end: '</u>',
     collapsable: false,
     processor: null
   },
   '\n': {
     name: 'NEWLINE',
-    start: '<p class="card-size"><span class="newline">→</span>',
+    start: '<p class="card-size"><span class="newline"></span>',
     end: '</p>',
     collapsable: false,
     processor: null
   },
   '→': {
     name: 'NEWLINE',
-    start: '<p class="card-size"><span class="newline">→</span>',
+    start: '<p class="card-size"><span class="newline"></span>',
     end: '</p>',
     collapsable: false,
     processor: null
   },
   $: {
     name: 'MATH',
-    start: '<span class="math-inline">$',
-    end: '$</span>',
+    start: '<span class="math-inline">',
+    end: '</span>',
     collapsable: false,
     processor: processKatexString
   },
   $$: {
     name: 'MATHBLOCK',
-    start: '<div class="math-block">$$',
-    end: '$$</div>',
+    start: '<div class="math-block">',
+    end: '</div>',
     collapsable: false,
     processor: processKatexString
   },

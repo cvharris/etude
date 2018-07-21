@@ -7,10 +7,10 @@ export default function FlashCard() {
   this.tags = []
   this.front = {
     rawText: '',
-    renderedText: markdownToHTML(' ')
+    renderedText: markdownToHTML('')
   }
   this.back = {
     rawText: '',
-    renderedText: markdownToHTML(' ')
+    renderedText: markdownToHTML('')
   }
 }

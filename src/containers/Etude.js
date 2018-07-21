@@ -73,11 +73,12 @@ export default class Etude extends Component {
   }
 
   render() {
+    const { currentlyEditing } = this.state
     return (
       <div className="avenir flex items-stretch">
         <Sidebar />
         <FlashCardList />
-        <FlashCardEditor />
+        <FlashCardEditor activeFlashCard={currentlyEditing} />
       </div>
     )
   }

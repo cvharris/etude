@@ -54,12 +54,16 @@ export default class ContentEditable extends Component {
     }
   }
 
-  emitChange = () => {
-    if (!this.htmlEl) return
+  removeCaretPosition = () => {
     const caret = document.getElementById('caret-position')
     if (caret) {
       caret.parentNode.removeChild(caret)
     }
+  }
+
+  emitChange = () => {
+    if (!this.htmlEl) return
+    this.removeCaretPosition()
     const html = this.htmlEl.innerHTML
     const sel = window.getSelection()
     const cursorCharacter = !sel.focusNode.localName
@@ -68,7 +72,7 @@ export default class ContentEditable extends Component {
     this.setState({
       cursorCharacter
     })
-    if (this.props.onChange && html !== this.lastHtml) {
+    if (this.props.onChange && this.lastHtml && html !== this.lastHtml) {
       const mathhtml = document.getElementsByClassName('katex-html')
       while (mathhtml[0]) {
         mathhtml[0].parentNode.removeChild(mathhtml[0])
@@ -89,8 +93,9 @@ export default class ContentEditable extends Component {
 
   onBlur = () => {
     if (!this.htmlEl) return
+    this.removeCaretPosition()
     const html = this.htmlEl.innerHTML
-    if (this.props.onChange && html !== this.lastHtml) {
+    if (this.props.onChange && this.lastHtml && html !== this.lastHtml) {
       const mathhtml = document.getElementsByClassName('katex-html')
       while (mathhtml[0]) {
         mathhtml[0].parentNode.removeChild(mathhtml[0])
@@ -106,7 +111,6 @@ export default class ContentEditable extends Component {
       <div
         ref={e => (this.htmlEl = e)}
         onInput={this.emitChange}
-        onBlur={this.onBlur}
         contentEditable="true"
         dangerouslySetInnerHTML={{ __html: html }}
       />

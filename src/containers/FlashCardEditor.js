@@ -9,19 +9,18 @@ import {
 } from '../actions/flashCardEditorActions'
 import { cardSaved } from '../actions/flashCardListActions'
 import Card from '../components/Card'
-import FlashCard from '../lib/FlashCard'
 
 class FlashCardEditor extends Component {
   static propTypes = {
-    cardSaved: PropTypes.func,
     flashCard: PropTypes.object,
+    cardSaved: PropTypes.func,
     handleCardBackUpdate: PropTypes.func,
     handleCardFrontUpdate: PropTypes.func,
     handleCardTitleUpdate: PropTypes.func
   }
 
   state = {
-    flashCard: new FlashCard()
+    editingFront: true
   }
 
   constructor(props) {
@@ -30,16 +29,34 @@ class FlashCardEditor extends Component {
     this.handleUpdateCard = debounce(this.handleUpdateCard.bind(this), 1250)
   }
 
-  static getDerivedStateFromProps(props) {
-    return { flashCard: props.flashCard }
+  handleUpdateCard() {
+    this.props.cardSaved(this.props.flashCard)
   }
 
-  handleUpdateCard() {
-    this.props.cardSaved(this.state.flashCard)
+  renderRawText = newRawText => {
+    this.state.editingFront
+      ? this.props.handleCardFrontUpdate(newRawText)
+      : this.props.handleCardBackUpdate(newRawText)
+    this.handleUpdateCard()
+  }
+
+  switchSide = side => {
+    if (
+      (this.state.editingFront && side === 'front') ||
+      (!this.state.editingFront && side === 'back')
+    ) {
+      return
+    }
+
+    this.setState({
+      editingFront: side === 'front'
+    })
   }
 
   render() {
-    const { flashCard } = this.state
+    const { flashCard } = this.props
+    const { editingFront } = this.state
+
     return (
       <div id="editor" className="app-background flex-auto mh3">
         <div className="card-header flex items-center">
@@ -55,24 +72,34 @@ class FlashCardEditor extends Component {
             />
           </label>
         </div>
-        <Card
-          side="Front"
-          rawText={flashCard.front.rawText}
-          handleUpdate={frontText => {
-            this.props.handleCardFrontUpdate(frontText)
-            this.handleUpdateCard()
-          }}
-          renderedText={flashCard.front.renderedText}
-        />
-        <Card
-          side="Back"
-          rawText={flashCard.back.rawText}
-          handleUpdate={backText => {
-            this.props.handleCardBackUpdate(backText)
-            this.handleUpdateCard()
-          }}
-          renderedText={flashCard.back.renderedText}
-        />
+        <div className="side-toggle flex justify-center">
+          <div
+            onClick={() => this.switchSide('front')}
+            className={`bt br bl b--black br2 pv2 ph3 ${
+              editingFront
+                ? 'bg-white black'
+                : 'bg-gray dark-gray hover-bg-light-gray pointer'
+            }`}
+          >
+            Front
+          </div>
+          <div
+            onClick={() => this.switchSide('back')}
+            className={`bt br bl b--black br2 pv2 ph3 ${
+              !editingFront
+                ? 'bg-white black'
+                : 'bg-gray dark-gray hover-bg-light-gray pointer'
+            }`}
+          >
+            Back
+          </div>
+        </div>
+        <div className="">
+          <Card
+            side={editingFront ? flashCard.front : flashCard.back}
+            handleUpdate={this.renderRawText}
+          />
+        </div>
       </div>
     )
   }
