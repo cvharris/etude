@@ -10,7 +10,6 @@ export default function CardListItem({ card, handleSelect, handleDelete }) {
           className="card-list-item-body pa3 flex-auto hover-bg-light-gray"
           onClick={() => handleSelect(card)}
         >
-          <h3 className="fw6 f5 mt0 mb3">{card.title}</h3>
           {card.front.rawText && (
             <p className="mt0 mb1 truncate">
               <span className="fw6 pr2">F:</span>

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Popup from 'reactjs-popup'
+import DeckMenu from './DeckMenu'
 import RenameDeck from './RenameDeck'
 
 export default class DeckListItem extends Component {
@@ -13,25 +14,28 @@ export default class DeckListItem extends Component {
   }
 
   state = {
+    clickCount: 0,
     renameOpen: false,
     optionsOpen: false
   }
 
-  toggleOptionsPopup = e => {
-    if (e) {
-      e.preventDefault()
-      e.stopPropagation()
-    }
+  componentWillUnmount() {
+    this.clickTimeout && clearTimeout(this.clickTimeout)
+    this.clickTimeout = false
+  }
 
+  toggleOptionsPopup = () => {
     this.setState({
       ...this.state,
+      renameOpen: false,
       optionsOpen: !this.state.optionsOpen
     })
   }
 
   toggleRenamePopup = () => {
     this.setState({
-      ...this.state,
+      clickCount: 0, // NOTE: side-effect?
+      optionsOpen: false,
       renameOpen: !this.state.renameOpen
     })
   }
@@ -40,17 +44,42 @@ export default class DeckListItem extends Component {
     this.props.handleRenamingDeck({ ...this.props.deck, name: renamed })
   }
 
+  handleMouseDown = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (e.button === 1 || e.button === 2) {
+      this.toggleOptionsPopup(e)
+    } else if (e.button === 0) {
+      if (this.state.clickCount === 1) {
+        this.toggleRenamePopup()
+      } else {
+        this.clickTimeout = setTimeout(() => {
+          if (this.state.clickCount === 1) {
+            this.props.toSwitchDeck(this.props.deck.id)
+            this.setState({
+              ...this.state,
+              clickCount: 0
+            })
+          }
+        }, 250)
+        this.setState({
+          ...this.state,
+          clickCount: this.state.clickCount + 1
+        })
+      }
+    }
+  }
+
   render() {
-    const { deck, active, toSwitchDeck, handleRemovingDeck } = this.props
+    const { deck, active, handleRemovingDeck } = this.props
     const { renameOpen, optionsOpen } = this.state
     return (
       <div
         className={`deck pv2 pointer relative z-1 ${
           active ? 'bg-darker-gray' : ''
         }`}
-        onClick={() => toSwitchDeck(deck.id)}
-        onContextMenu={e => this.toggleOptionsPopup(e)}
-        onDoubleClick={this.toggleRenamePopup}
+        onMouseDown={e => this.handleMouseDown(e)}
+        onContextMenu={e => e.preventDefault()}
       >
         <div className="deck-name ph3 f6 fw3 z-2">{deck.name}</div>
         <Popup
@@ -75,17 +104,11 @@ export default class DeckListItem extends Component {
           position="right top"
           onClose={this.toggleOptionsPopup}
         >
-          <div className="black">
-            <div
-              onClick={() => {
-                this.toggleOptionsPopup()
-                this.toggleRenamePopup()
-              }}
-            >
-              Rename Deck
-            </div>
-            <div onClick={handleRemovingDeck}>Delete Deck</div>
-          </div>
+          <DeckMenu
+            toggleOptionsPopup={this.toggleOptionsPopup}
+            toggleRenamePopup={this.toggleRenamePopup}
+            handleRemovingDeck={() => handleRemovingDeck(deck)}
+          />
         </Popup>
       </div>
     )

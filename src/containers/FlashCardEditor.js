@@ -23,7 +23,6 @@ class FlashCardEditor extends Component {
     cardSaved: PropTypes.func,
     handleCardBackUpdate: PropTypes.func,
     handleCardFrontUpdate: PropTypes.func,
-    handleCardTitleUpdate: PropTypes.func,
     updateDeck: PropTypes.func,
     updateDifficulty: PropTypes.func,
     updateNeed: PropTypes.func,

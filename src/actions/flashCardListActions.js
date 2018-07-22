@@ -25,9 +25,7 @@ export function cardSaved(updatedCard) {
 
     const found = state.flashCards.filter(card => card.id === updatedCard.id)
     const newCardList = !found.length
-      ? updatedCard.title ||
-        updatedCard.back.rawText ||
-        updatedCard.front.rawText
+      ? updatedCard.back.rawText || updatedCard.front.rawText
         ? [...state.flashCards, updatedCard]
         : state.flashCards
       : state.flashCards.map(
@@ -35,9 +33,7 @@ export function cardSaved(updatedCard) {
         )
 
     const currentCardList = !found.length
-      ? updatedCard.title ||
-        updatedCard.back.rawText ||
-        updatedCard.front.rawText
+      ? updatedCard.back.rawText || updatedCard.front.rawText
         ? [...state.currentFlashCards, updatedCard]
         : state.flashCards
       : state.currentFlashCards.map(

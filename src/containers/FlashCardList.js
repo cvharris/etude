@@ -43,7 +43,9 @@ class FlashCardList extends Component {
     const filterString = e.target.value
     this.setState({
       flashCards: this.state.flashCards.filter(
-        card => card.title.indexOf(filterString) > 0
+        card =>
+          card.front.rawText.indexOf(filterString) > -1 ||
+          card.back.rawText.indexOf(filterString) > -1
       ),
       filterString
     })

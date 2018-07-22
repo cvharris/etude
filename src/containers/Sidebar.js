@@ -30,7 +30,9 @@ export class Sidebar extends Component {
   }
 
   generateAtLeastOneDeck = () => {
-    this.props.createDeck(new Deck({ title: 'New Deck' }))
+    const newDeck = new Deck({ name: 'New Deck' })
+    this.props.createDeck(newDeck)
+    this.props.switchDeck(newDeck.id)
   }
 
   render() {
