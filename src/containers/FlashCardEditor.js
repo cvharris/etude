@@ -44,8 +44,26 @@ class FlashCardEditor extends Component {
     this.handleUpdateCard = debounce(this.handleUpdateCard.bind(this), 1250)
   }
 
+  componentDidMount() {
+    this.useActiveDeckAsDeckId()
+  }
+
+  componentDidUpdate() {
+    this.useActiveDeckAsDeckId()
+  }
+
   handleUpdateCard() {
     this.props.cardSaved(this.props.flashCard)
+  }
+
+  useActiveDeckAsDeckId = () => {
+    if (!this.props.flashCard.deckId) {
+      this.updateDeck(
+        this.props.decks.filter(
+          deck => deck.value === this.props.activeDeckId
+        )[0]
+      )
+    }
   }
 
   updateAttribute = (opt, cb) => {
@@ -79,9 +97,21 @@ class FlashCardEditor extends Component {
   }
 
   render() {
-    const { flashCard, decks, updateDifficulty, updateNeed } = this.props
+    const {
+      flashCard,
+      decks,
+      updateDifficulty,
+      updateNeed,
+      activeDeckId
+    } = this.props
     const { editingFront } = this.state
     const side = editingFront ? flashCard.front : flashCard.back
+    const selectedDeck = decks.filter(
+      deck =>
+        flashCard.deckId
+          ? deck.value === flashCard.deckId
+          : deck.value === activeDeckId
+    )[0]
 
     return (
       <div id="editor" className="app-background flex-auto mh3">
@@ -91,7 +121,7 @@ class FlashCardEditor extends Component {
             classNamePrefix=""
             options={decks}
             placeholder="Deck..."
-            value={decks.filter(deck => deck.value === flashCard.deckId)[0]}
+            value={selectedDeck}
             onChange={this.updateDeck}
             isClearable={false}
             isSearchable={true}
