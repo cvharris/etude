@@ -2,6 +2,6 @@ import { v4 } from 'uuid'
 
 export default function Deck(options) {
   this.id = v4()
-  this.title = ''
+  this.name = ''
   Object.assign(this, options)
 }
