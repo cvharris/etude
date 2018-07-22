@@ -34,7 +34,13 @@ export class Sidebar extends Component {
   }
 
   render() {
-    const { decks, activeDeckId, switchDeck } = this.props
+    const {
+      decks,
+      activeDeckId,
+      switchDeck,
+      updateDeck,
+      removeDeck
+    } = this.props
 
     return (
       <div className="sidebar bg-dark-gray flex-grow-1 white">
@@ -53,6 +59,8 @@ export class Sidebar extends Component {
               deck={deck}
               active={activeDeckId === deck.id}
               toSwitchDeck={switchDeck}
+              handleRemovingDeck={removeDeck}
+              handleRenamingDeck={updateDeck}
               key={deck.id}
             />
           ))}

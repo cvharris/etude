@@ -97,3 +97,7 @@ textarea {
 .math-inline, .math-block {
   font-family: 'KaTeX_Main';
 }
+
+.z--1 {
+  z-index: -1;
+}

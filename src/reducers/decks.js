@@ -14,6 +14,7 @@ export const initialState = {
 }
 
 export default function(state = initialState, action) {
+  console.log(state, action)
   const { type, payload } = action
   switch (type) {
     case 'ADD_DECK':
