@@ -9,6 +9,7 @@ export default function DeckMenu({
   return (
     <div className="black">
       <div
+        className="pointer hover-bg-red hover-white ph2 pv1"
         onClick={e => {
           e.preventDefault()
           e.stopPropagation()
@@ -19,6 +20,7 @@ export default function DeckMenu({
         Rename Deck
       </div>
       <div
+        className="pointer hover-bg-red hover-white ph2 pv1"
         onClick={e => {
           e.preventDefault()
           e.stopPropagation()

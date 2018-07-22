@@ -19,17 +19,17 @@ export class Sidebar extends Component {
 
   componentDidMount() {
     if (!this.props.decks.length) {
-      this.generateAtLeastOneDeck()
+      this.createADeck()
     }
   }
 
   componentDidUpdate() {
     if (!this.props.decks.length) {
-      this.generateAtLeastOneDeck()
+      this.createADeck()
     }
   }
 
-  generateAtLeastOneDeck = () => {
+  createADeck = () => {
     const newDeck = new Deck({ name: 'New Deck' })
     this.props.createDeck(newDeck)
     this.props.switchDeck(newDeck.id)
@@ -56,6 +56,12 @@ export class Sidebar extends Component {
           <span className="pl2">Practice</span>
         </h4>
         <div className="deck-list bt b--gray pt3">
+          <h5 className="fw6 f6 flex justify-between ph2 mb2 mt0">
+            <span>Decks</span>
+            <span className="pointer hover-red" onClick={this.createADeck}>
+              <FontAwesomeIcon icon="plus-square" />
+            </span>
+          </h5>
           {decks.map(deck => (
             <DeckListItem
               deck={deck}
