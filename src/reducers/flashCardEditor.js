@@ -3,6 +3,7 @@ import {
   DELETE_CARD,
   DELETE_DECK,
   NEW_CARD,
+  RESTORE_CARD,
   SWITCH_CARD,
   UPDATE_CARD_BACK,
   UPDATE_CARD_DECK,
@@ -35,7 +36,7 @@ export const initialState = null
 
 export default (state = initialState, action) => {
   const { type, payload } = action
-  if (!state && ![NEW_CARD, SWITCH_CARD].includes(type)) {
+  if (!state && ![NEW_CARD, SWITCH_CARD, RESTORE_CARD].includes(type)) {
     return state
   }
   switch (type) {
@@ -43,6 +44,8 @@ export default (state = initialState, action) => {
       return Object.assign({}, payload)
     case SWITCH_CARD:
       return payload.isTrashed ? null : Object.assign({}, payload)
+    case RESTORE_CARD:
+      return Object.assign({}, payload)
     case UPDATE_CARD_DECK:
       return {
         ...state,

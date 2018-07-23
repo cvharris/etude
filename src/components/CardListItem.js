@@ -2,7 +2,12 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-export default function CardListItem({ card, handleSelect, handleDelete }) {
+export default function CardListItem({
+  card,
+  handleSelect,
+  handleDelete,
+  handleRestore
+}) {
   return (
     <div className="card-list-item bb b--light-gray">
       <div className="flex items-stretch">
@@ -23,12 +28,22 @@ export default function CardListItem({ card, handleSelect, handleDelete }) {
             </p>
           )}
         </div>
-        <div
-          className="card-list-item-delete pointer bg-red white pa3 flex items-center"
-          onClick={() => handleDelete(card.id)}
-        >
-          <FontAwesomeIcon icon="trash-alt" />
-        </div>
+        {card.isTrashed && (
+          <div
+            className="card-list-item-delete pointer bg-light-blue white pa3 flex items-center"
+            onClick={() => handleRestore(card)}
+          >
+            <FontAwesomeIcon icon="share" />
+          </div>
+        )}
+        {!card.isTrashed && (
+          <div
+            className="card-list-item-delete pointer bg-red white pa3 flex items-center"
+            onClick={() => handleDelete(card.id)}
+          >
+            <FontAwesomeIcon icon="trash-alt" />
+          </div>
+        )}
       </div>
     </div>
   )
@@ -36,6 +51,7 @@ export default function CardListItem({ card, handleSelect, handleDelete }) {
 
 CardListItem.propTypes = {
   card: PropTypes.object,
+  handleRestore: PropTypes.func,
   handleSelect: PropTypes.func,
   handleDelete: PropTypes.func
 }

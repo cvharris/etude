@@ -11,6 +11,7 @@ export const SAVE_CARD = 'SAVE_CARD'
 export const NEW_CARD = 'NEW_CARD'
 export const SWITCH_CARD = 'SWITCH_CARD'
 export const DELETE_CARD = 'DELETE_CARD'
+export const RESTORE_CARD = 'RESTORE_CARD'
 
 // decks
 export const ADD_DECK = 'ADD_DECK'

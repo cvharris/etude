@@ -1,5 +1,10 @@
 import { createSelector } from 'reselect'
-import { ADD_DECK, DELETE_DECK, UPDATE_DECK } from '../conf/ActionTypes'
+import {
+  ADD_DECK,
+  DELETE_DECK,
+  RESTORE_CARD,
+  UPDATE_DECK
+} from '../conf/ActionTypes'
 
 export const createDeck = newDeck => ({ type: ADD_DECK, payload: newDeck })
 export const updateDeck = revisedDeck => ({
@@ -36,6 +41,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         byId: { ...state.byId, [payload.id]: payload }
+      }
+    case RESTORE_CARD:
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [payload.deckId]: { ...state.byId[payload.deckId], isTrashed: false }
+        }
       }
     default:
       return state

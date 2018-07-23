@@ -5,6 +5,7 @@ import {
   DELETE_CARD,
   DELETE_DECK,
   NEW_CARD,
+  RESTORE_CARD,
   SAVE_CARD,
   SWITCH_CARD
 } from '../conf/ActionTypes'
@@ -26,6 +27,10 @@ export const deleteCard = deletedCardId => ({
 export const newFlashCard = newFlashCard => ({
   type: NEW_CARD,
   payload: newFlashCard
+})
+export const restoreCard = restoredCardId => ({
+  type: RESTORE_CARD,
+  payload: restoredCardId
 })
 
 // Initial State
@@ -84,6 +89,18 @@ export default (state = initialState, action) => {
             newMap[card.id] = card
             return newMap
           }, {})
+      }
+    case RESTORE_CARD:
+      return {
+        activeCardId: payload.id,
+        allIds: [...state.allIds],
+        byId: {
+          ...state.byId,
+          [payload.id]: {
+            ...state.byId[payload.id],
+            isTrashed: false
+          }
+        }
       }
     default:
       return state

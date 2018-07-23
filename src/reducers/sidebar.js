@@ -1,4 +1,4 @@
-import { CHANGE_DECK, DELETE_DECK } from '../conf/ActionTypes'
+import { CHANGE_DECK, DELETE_DECK, RESTORE_CARD } from '../conf/ActionTypes'
 
 export const switchDeck = deckId => ({ type: 'CHANGE_DECK', payload: deckId })
 
@@ -12,6 +12,8 @@ export default (state = initialState, action) => {
       return { activeDeckId: action.payload }
     case DELETE_DECK:
       return { activeDeckId: '' }
+    case RESTORE_CARD:
+      return { activeDeckId: action.payload.deckId }
     default:
       return state
   }

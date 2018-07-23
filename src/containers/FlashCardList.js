@@ -10,6 +10,7 @@ import {
   getDecksCards,
   getTrashedCards,
   newFlashCard,
+  restoreCard,
   switchCard
 } from '../reducers/flashCards'
 
@@ -19,7 +20,8 @@ class FlashCardList extends Component {
     newFlashCard: PropTypes.func,
     switchCard: PropTypes.func,
     deleteCard: PropTypes.func,
-    flashCards: PropTypes.array
+    flashCards: PropTypes.array,
+    restoreCard: PropTypes.func
   }
 
   constructor(props) {
@@ -59,7 +61,13 @@ class FlashCardList extends Component {
   }
 
   render() {
-    const { newFlashCard, switchCard, deleteCard, flashCards } = this.props
+    const {
+      newFlashCard,
+      switchCard,
+      deleteCard,
+      flashCards,
+      restoreCard
+    } = this.props
     return (
       <div className="flash-card-list bg-white flex-grow-1 b--black br">
         <div className="filter-cards flex items-center justify-end bb b--light-gray">
@@ -89,6 +97,7 @@ class FlashCardList extends Component {
             <CardListItem
               handleSelect={switchCard}
               handleDelete={deleteCard}
+              handleRestore={restoreCard}
               card={card}
               key={i}
             />
@@ -107,5 +116,5 @@ export default connect(
         : getDecksCards(state),
     activeCardId: state.flashCards.activeCardId
   }),
-  { newFlashCard, switchCard, deleteCard }
+  { newFlashCard, switchCard, deleteCard, restoreCard }
 )(FlashCardList)
