@@ -2,13 +2,16 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import CardListItem from '../components/CardListItem'
+import FlashCard from '../lib/FlashCard'
+import PrintCards from '../lib/PrintCards'
 import {
   deleteCard,
+  getDecksCards,
+  getTrashedCards,
   newFlashCard,
   switchCard
-} from '../actions/flashCardListActions'
-import CardListItem from '../components/CardListItem'
-import PrintCards from '../lib/PrintCards'
+} from '../reducers/flashCards'
 
 class FlashCardList extends Component {
   static propTypes = {
@@ -56,9 +59,10 @@ class FlashCardList extends Component {
   }
 
   render() {
+    const { newFlashCard, switchCard, deleteCard, flashCards } = this.props
     return (
       <div className="flash-card-list bg-white flex-grow-1 b--black br">
-        <div className="filter-cards flex items-center bb b--light-gray">
+        <div className="filter-cards flex items-center justify-end bb b--light-gray">
           <label>
             <input
               placeholder="Search..."
@@ -69,7 +73,7 @@ class FlashCardList extends Component {
           </label>
           <div
             className="pointer gray hover-dark-gray pv2 ph3"
-            onClick={this.props.newFlashCard}
+            onClick={() => newFlashCard(new FlashCard())}
           >
             <FontAwesomeIcon icon="plus-square" />
           </div>
@@ -81,11 +85,10 @@ class FlashCardList extends Component {
           </div>
         </div>
         <div className="current-card-list">
-          {this.props.flashCards.map((card, i) => (
-            // TODO: add conditional rendering so we only show those with active tag
+          {flashCards.map((card, i) => (
             <CardListItem
-              handleSelect={this.props.switchCard}
-              handleDelete={this.props.deleteCard}
+              handleSelect={switchCard}
+              handleDelete={deleteCard}
               card={card}
               key={i}
             />
@@ -98,10 +101,11 @@ class FlashCardList extends Component {
 
 export default connect(
   state => ({
-    activeTag: state.sidebar.activeTag,
-    flashCards: state.flashCardList.flashCards,
-    currentFlashCards: state.flashCardList.currentFlashCards,
-    activeCardId: state.flashCardList.activeCardId
+    flashCards:
+      state.sidebar.activeDeckId === 'trash'
+        ? getTrashedCards(state)
+        : getDecksCards(state),
+    activeCardId: state.flashCards.activeCardId
   }),
   { newFlashCard, switchCard, deleteCard }
 )(FlashCardList)

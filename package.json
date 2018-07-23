@@ -21,6 +21,7 @@
     "reactjs-popup": "^1.1.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.3.0",
+    "reselect": "^3.0.1",
     "tachyons": "^4.9.1",
     "uuid": "^3.3.2"
   },

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Select from 'react-select'
-import { cardSaved } from '../actions/flashCardListActions'
 import Editor from '../components/Editor'
 import Preview from '../components/Preview'
 import CardDifficulty from '../lib/CardDifficulty'
 import StudyNeed from '../lib/StudyNeed'
+import { getDeckSelectList } from '../reducers/decks'
 import {
   handleCardBackUpdate,
   handleCardFrontUpdate,
@@ -15,12 +15,20 @@ import {
   updateDifficulty,
   updateNeed
 } from '../reducers/flashCardEditor'
+import {
+  createCard,
+  getDecksCardsLength,
+  saveCard
+} from '../reducers/flashCards'
 
 class FlashCardEditor extends Component {
   static propTypes = {
     flashCard: PropTypes.object,
-    decks: PropTypes.array,
-    cardSaved: PropTypes.func,
+    deckValues: PropTypes.array,
+    cardsInDeck: PropTypes.number,
+    activeCardId: PropTypes.string,
+    createCard: PropTypes.func,
+    saveCard: PropTypes.func,
     handleCardBackUpdate: PropTypes.func,
     handleCardFrontUpdate: PropTypes.func,
     updateDeck: PropTypes.func,
@@ -44,24 +52,32 @@ class FlashCardEditor extends Component {
   }
 
   componentDidMount() {
-    this.useActiveDeckAsDeckId()
+    if (this.props.flashCard) {
+      this.useActiveDeckAsDeckId()
+    }
   }
 
   componentDidUpdate() {
-    this.useActiveDeckAsDeckId()
+    if (this.props.flashCard) {
+      this.useActiveDeckAsDeckId()
+    }
   }
 
   handleUpdateCard() {
-    this.props.cardSaved(this.props.flashCard)
+    const { activeCardId, createCard, saveCard, flashCard } = this.props
+    if (flashCard.front.rawText || flashCard.back.rawText) {
+      if (activeCardId !== flashCard.id) {
+        createCard(flashCard)
+      } else {
+        saveCard(flashCard)
+      }
+    }
   }
 
   useActiveDeckAsDeckId = () => {
-    if (!this.props.flashCard.deckId) {
-      this.updateDeck(
-        this.props.decks.filter(
-          deck => deck.value === this.props.activeDeckId
-        )[0]
-      )
+    const { flashCard, activeDeckId, deckValues } = this.props
+    if (!flashCard.deckId && activeDeckId) {
+      this.updateDeck(deckValues.filter(deck => deck.value === activeDeckId)[0])
     }
   }
 
@@ -98,27 +114,33 @@ class FlashCardEditor extends Component {
   render() {
     const {
       flashCard,
-      decks,
       updateDifficulty,
       updateNeed,
-      activeDeckId
+      deckValues,
+      cardsInDeck
     } = this.props
+    if (!flashCard) {
+      return (
+        <div id="editor" className="center">
+          <div className="card-header mt5 fw7">{`${cardsInDeck} card${
+            cardsInDeck === 1 ? '' : 's'
+          }`}</div>
+        </div>
+      )
+    }
     const { editingFront } = this.state
     const side = editingFront ? flashCard.front : flashCard.back
-    const selectedDeck = decks.filter(
-      deck =>
-        flashCard.deckId
-          ? deck.value === flashCard.deckId
-          : deck.value === activeDeckId
+    const selectedDeck = deckValues.filter(
+      deck => flashCard.deckId === deck.value
     )[0]
 
     return (
-      <div id="editor" className="app-background flex-auto mh3">
+      <div id="editor" className="flex-auto mh3">
         <div className="card-header flex items-center">
           <Select
             className="flex-auto"
             classNamePrefix=""
-            options={decks}
+            options={deckValues}
             placeholder="Deck..."
             value={selectedDeck}
             onChange={this.updateDeck}
@@ -179,17 +201,17 @@ class FlashCardEditor extends Component {
 
 export default connect(
   state => ({
-    decks: state.decks.allIds.map(deckId => ({
-      label: state.decks.byId[deckId].name,
-      value: deckId
-    })),
+    deckValues: getDeckSelectList(state),
+    cardsInDeck: getDecksCardsLength(state),
+    activeCardId: state.flashCards.activeCardId,
     flashCard: state.flashCardEditor,
     activeDeckId: state.sidebar.activeDeckId
   }),
   {
     handleCardFrontUpdate,
     handleCardBackUpdate,
-    cardSaved,
+    createCard,
+    saveCard,
     updateDifficulty,
     updateDeck,
     updateNeed

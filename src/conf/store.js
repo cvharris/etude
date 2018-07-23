@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import decks from '../reducers/decks'
 import flashCardEditor from '../reducers/flashCardEditor'
-import flashCardList from '../reducers/flashCardList'
+import flashCards from '../reducers/flashCards'
 import sidebar from '../reducers/sidebar'
 import { saveState } from './localStorage'
 
@@ -12,7 +12,7 @@ const configureStore = persistedState => {
   const store = createStore(
     combineReducers({
       flashCardEditor,
-      flashCardList,
+      flashCards,
       sidebar,
       decks
     }),
@@ -26,7 +26,7 @@ const configureStore = persistedState => {
         flashCardEditor: store.getState().flashCardEditor,
         sidebar: store.getState().sidebar,
         decks: store.getState().decks,
-        flashCardList: store.getState().flashCardList
+        flashCards: store.getState().flashCards
       })
     }, 1000)
   )

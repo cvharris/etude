@@ -3,6 +3,26 @@ body {
   font-size: 18px;
 }
 
+#etude {
+  display: grid;
+  grid-template-columns: 175px 300px 1fr;
+  grid-template-rows: 1fr;
+  width: 100vw;
+  height: 100vh;
+}
+
+#sidebar {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  grid-template-columns: 1fr;
+}
+
+#side-flex-area {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-columns: 1fr;
+}
+
 .app-background {
   height: 100vh;
   width: 100vw;
@@ -80,12 +100,6 @@ textarea {
   text-align: center;
   resize: none;
   outline: 0px solid white !important;
-}
-
-.sidebar {
-  width: 175px;
-  max-width: 175px;
-  flex: 0 0 175px;
 }
 
 .flash-card-list {

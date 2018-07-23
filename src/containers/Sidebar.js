@@ -45,7 +45,10 @@ export class Sidebar extends Component {
     } = this.props
 
     return (
-      <div className="sidebar bg-dark-gray flex-grow-1 white">
+      <div
+        id="sidebar"
+        className="bg-dark-gray flex-grow-1 white flex flex-column"
+      >
         <h4 className="white f4 mv2 ph3 pv2 fw1">Etude</h4>
         <h4 className="bg-red fw4 mv2 f5 ph3 pv2 nowrap pointer">
           <FontAwesomeIcon icon="window-restore" />
@@ -55,23 +58,34 @@ export class Sidebar extends Component {
           <FontAwesomeIcon icon="dumbbell" />
           <span className="pl2">Practice</span>
         </h4>
-        <div className="deck-list bt b--gray pt3">
-          <h5 className="fw6 f6 flex justify-between ph2 mb2 mt0">
-            <span>Decks</span>
-            <span className="pointer hover-red" onClick={this.createADeck}>
-              <FontAwesomeIcon icon="plus-square" />
-            </span>
-          </h5>
-          {decks.map(deck => (
-            <DeckListItem
-              deck={deck}
-              active={activeDeckId === deck.id}
-              toSwitchDeck={switchDeck}
-              handleRemovingDeck={removeDeck}
-              handleRenamingDeck={updateDeck}
-              key={deck.id}
-            />
-          ))}
+        <div id="side-flex-area" className="flex flex-column flex-grow-1">
+          <div className="deck-list bt b--gray pt3 flex-flex-grow-1">
+            <h5 className="fw6 f6 flex justify-between ph2 mb2 mt0">
+              <span>Decks</span>
+              <span className="pointer hover-red" onClick={this.createADeck}>
+                <FontAwesomeIcon icon="plus-square" />
+              </span>
+            </h5>
+            {decks.map(deck => (
+              <DeckListItem
+                deck={deck}
+                active={activeDeckId === deck.id}
+                toSwitchDeck={switchDeck}
+                handleRemovingDeck={removeDeck}
+                handleRenamingDeck={updateDeck}
+                key={deck.id}
+              />
+            ))}
+          </div>
+          <div
+            className="trash-box bt b--gray pt3 pointer"
+            onClick={() => switchDeck('trash')}
+          >
+            <h5 className="fw6 f6 flex justify-between ph2 mb2 mt0">
+              <span>Trash</span>
+              <FontAwesomeIcon icon="trash-alt" />
+            </h5>
+          </div>
         </div>
       </div>
     )
@@ -83,6 +97,7 @@ export default connect(
     decks: state.decks.allIds.map(deckId => state.decks.byId[deckId]),
     activeDeckId: state.sidebar.activeDeckId
   }),
+  // TODO: handle deleting a deck, should delete all cards in the deck
   {
     switchDeck,
     createDeck,

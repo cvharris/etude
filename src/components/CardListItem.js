@@ -25,7 +25,7 @@ export default function CardListItem({ card, handleSelect, handleDelete }) {
         </div>
         <div
           className="card-list-item-delete pointer bg-red white pa3 flex items-center"
-          onClick={() => handleDelete(card)}
+          onClick={() => handleDelete(card.id)}
         >
           <FontAwesomeIcon icon="trash-alt" />
         </div>

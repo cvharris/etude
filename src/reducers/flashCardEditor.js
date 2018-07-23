@@ -1,4 +1,5 @@
 import {
+  CHANGE_DECK,
   DELETE_CARD,
   NEW_CARD,
   SWITCH_CARD,
@@ -8,7 +9,6 @@ import {
   UPDATE_DIFFICULTY,
   UPDATE_NEED
 } from '../conf/ActionTypes'
-import FlashCard from '../lib/FlashCard'
 import Markdown from '../lib/markdown'
 
 export const handleCardFrontUpdate = cardFront => ({
@@ -30,47 +30,53 @@ export const updateDifficulty = difficulty => ({
 export const updateNeed = need => ({ type: 'UPDATE_NEED', payload: need })
 
 const md = new Markdown()
-export const initialState = new FlashCard()
+export const initialState = null
 
 export default (state = initialState, action) => {
-  switch (action.type) {
+  const { type, payload } = action
+  if (!state && ![NEW_CARD, SWITCH_CARD].includes(type)) {
+    return state
+  }
+  switch (type) {
     case NEW_CARD:
-      return new FlashCard()
+      return Object.assign({}, payload)
     case SWITCH_CARD:
-      return { ...action.payload }
+      return Object.assign({}, payload)
     case UPDATE_CARD_DECK:
       return {
         ...state,
-        deckId: action.payload
+        deckId: payload
       }
     case UPDATE_DIFFICULTY:
       return {
         ...state,
-        difficulty: action.payload
+        difficulty: payload
       }
     case UPDATE_NEED:
       return {
         ...state,
-        studyNeed: action.payload
+        studyNeed: payload
       }
     case UPDATE_CARD_BACK:
       return {
         ...state,
         back: {
-          rawText: action.payload,
-          renderedText: md.render(action.payload)
+          rawText: payload,
+          renderedText: md.render(payload)
         }
       }
     case UPDATE_CARD_FRONT:
       return {
         ...state,
         front: {
-          rawText: action.payload,
-          renderedText: md.render(action.payload)
+          rawText: payload,
+          renderedText: md.render(payload)
         }
       }
     case DELETE_CARD:
-      return action.payload.id === state.id ? new FlashCard() : state
+      return payload === state.id ? null : state
+    case CHANGE_DECK:
+      return null
     default:
       return state
   }

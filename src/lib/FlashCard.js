@@ -15,4 +15,5 @@ export default function FlashCard() {
     rawText: '',
     renderedText: ''
   }
+  this.isTrashed = false
 }
