@@ -1,44 +1,42 @@
 # Etude
---------
 
-Flash card generator with superpowers
+:flashlight: :memo: Flash card generator with superpowers :muscle: :dizzy: :rocket:
+
+[Etude App](https://cvharris.github.io/etude)
 
 I made this app while studying for the GMAT to help me generate physical flash cards of my own with complex math latex as well.
 
 ## Features
-- Create flash cards with markdown and LaTeX
-- Edit cards in place
-- Organize cards into decks and tags across decks
-- 
-- Run sessions on the site
+
+- Create flash cards with markdown and LaTeX math using Markdown-It
 - Print flash cards onto actual index cards
+- Organize cards into decks
+- Grade the difficulty and familiarity of each card
+- Practice flash cards in the Runner UI and track progress through runs
 
 ## Roadmap
 
-### Release 0.1
-- [x] Adds layout with sidebar and list of cards seondary sidebar
-- [x] Ability to add flash cards
-- [x] Ability to select flash cards from a list and edit them
-- [x] Save cards to a local storage
+- [x] Create flash cards online & offline-ready, stored in browser
+- [x] Simple markdown: bold, italic, underline
+- [x] Math output with Markdown-It Math
+- [x] Print flash cards to 4" x 6" index cards
+- [x] Organize cards into decks
+- [x] Set Difficulty of a flash card
+- [x] Set whether you are familiar with the card yet or not
+- [ ] Practice one or more decks with a timer with the built-in Runner UI
+- [ ] When practicing cards, indicate whether you knew the answer when card flipped
+- [ ] Track analytics on runs: time per card, which you knew, overall time, etc.
+- [ ] Replace Markdown-It with custom in-place editor, like Bear
 
-### Release 0.2 Math-Mark
-- [x] Initialize app with blank data
-- [x] Handle changing tags in the middle of text and maintaining cursor position
-- [x] Handles extra whitespace from being added
-- [x] Can write katex into markdown to convert to html
-- [x] Blank cards should be clickable anywhere to start typing
-- [ ] Text resizes as more lines are added
-- [ ] Refactor layout for grid and handle smaller screens (hiding sidebars)
-- [ ] Cards belong to decks and can be selected from the sidebar
-- [ ] Tagging flash cards
-- [ ] Selecting tags from the sidebar shows cards for that tag
-- [ ] Handle tags with more than one character
-- [ ] Handle new lines and block-level tags (lists, math block)
+## Contributing
 
-### Release 0.3 Runner-Five
-- [ ] 'Runner' to test over a deck or tag of cards
-- [ ] Runner can run through cards shuffled or in order
-- [ ] Runner keeps track of time per card and over all
-- [ ] Flipping cards over allows users to mark if they knew the answer or not
-- [ ] Can view analytics on each run and runs of the same deck/tag over time
-- [ ] Ability to use keyboard keys to traverse mathml annotations and edit expressions while rendered
+Pull requests are welcome if you wanna help add features!
+
+### Install
+
+```sh
+git clone https://github.com/cvharris/etude.git
+cd etude
+yarn
+yarn start
+```
