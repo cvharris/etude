@@ -1,6 +1,7 @@
 import {
   CHANGE_DECK,
   DELETE_CARD,
+  DELETE_DECK,
   NEW_CARD,
   SWITCH_CARD,
   UPDATE_CARD_BACK,
@@ -41,7 +42,7 @@ export default (state = initialState, action) => {
     case NEW_CARD:
       return Object.assign({}, payload)
     case SWITCH_CARD:
-      return Object.assign({}, payload)
+      return payload.isTrashed ? null : Object.assign({}, payload)
     case UPDATE_CARD_DECK:
       return {
         ...state,
@@ -75,6 +76,8 @@ export default (state = initialState, action) => {
       }
     case DELETE_CARD:
       return payload === state.id ? null : state
+    case DELETE_DECK:
+      return payload === state.deckId ? null : state
     case CHANGE_DECK:
       return null
     default:

@@ -3,6 +3,7 @@ import {
   ADD_CARD,
   CHANGE_DECK,
   DELETE_CARD,
+  DELETE_DECK,
   NEW_CARD,
   SAVE_CARD,
   SWITCH_CARD
@@ -69,6 +70,20 @@ export default (state = initialState, action) => {
             isTrashed: true
           })
         })
+      }
+    case DELETE_DECK:
+      return {
+        ...state,
+        allIds: [...state.allIds],
+        byId: Object.keys(state.byId)
+          .map(cardId => {
+            const card = state.byId[cardId]
+            return card.deckId === payload ? { ...card, isTrashed: true } : card
+          })
+          .reduce((newMap, card) => {
+            newMap[card.id] = card
+            return newMap
+          }, {})
       }
     default:
       return state

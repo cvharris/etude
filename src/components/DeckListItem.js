@@ -112,7 +112,7 @@ export default class DeckListItem extends Component {
           <DeckMenu
             toggleOptionsPopup={this.toggleOptionsPopup}
             toggleRenamePopup={this.toggleRenamePopup}
-            handleRemovingDeck={() => handleRemovingDeck(deck)}
+            handleRemovingDeck={() => handleRemovingDeck(deck.id)}
           />
         </Popup>
       </div>

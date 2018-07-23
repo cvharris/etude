@@ -6,9 +6,9 @@ export const updateDeck = revisedDeck => ({
   type: UPDATE_DECK,
   payload: revisedDeck
 })
-export const removeDeck = removedDeck => ({
+export const removeDeck = removedDeckId => ({
   type: DELETE_DECK,
-  payload: removedDeck
+  payload: removedDeckId
 })
 
 export const initialState = {
@@ -25,10 +25,12 @@ export default function(state = initialState, action) {
         allIds: [...state.allIds, payload.id]
       }
     case DELETE_DECK:
-      const { [payload.id]: deletedDeck, ...newState } = state.byId
       return {
-        byId: newState,
-        allIds: state.allIds.filter(cId => cId !== deletedDeck.id)
+        allIds: [...state.allIds],
+        byId: {
+          ...state.byId,
+          [payload]: { ...state.byId[payload], isTrashed: true }
+        }
       }
     case UPDATE_DECK:
       return {

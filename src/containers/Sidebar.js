@@ -4,7 +4,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DeckListItem from '../components/DeckListItem'
 import Deck from '../lib/Deck'
-import { createDeck, removeDeck, updateDeck } from '../reducers/decks'
+import {
+  createDeck,
+  getActiveDecks,
+  removeDeck,
+  updateDeck
+} from '../reducers/decks'
 import { switchDeck } from '../reducers/sidebar'
 
 export class Sidebar extends Component {
@@ -94,7 +99,7 @@ export class Sidebar extends Component {
 
 export default connect(
   state => ({
-    decks: state.decks.allIds.map(deckId => state.decks.byId[deckId]),
+    decks: getActiveDecks(state),
     activeDeckId: state.sidebar.activeDeckId
   }),
   // TODO: handle deleting a deck, should delete all cards in the deck
