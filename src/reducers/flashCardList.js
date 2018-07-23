@@ -1,3 +1,11 @@
+import {
+  CHANGE_TAG,
+  DELETE_CARD,
+  NEW_CARD,
+  SAVE_CARD,
+  SWITCH_CARD
+} from '../conf/ActionTypes'
+
 export const initialState = {
   flashCards: [],
   activeCardId: '',
@@ -8,14 +16,14 @@ export const initialState = {
 export default (state = initialState, action) => {
   const { type, payload } = action
   switch (type) {
-    case 'SAVE_CARD':
+    case SAVE_CARD:
       return {
         ...state,
         flashCards: payload.newCardList,
         activeCardId: payload.updatedCard.id,
         currentFlashCards: payload.currentCardList
       }
-    case 'CHANGE_TAG':
+    case CHANGE_TAG:
       return {
         ...state,
         currentFlashCards:
@@ -25,17 +33,17 @@ export default (state = initialState, action) => {
                 cards.tags.some(tag => tag.name === payload)
               )
       }
-    case 'SWITCH_CARD':
+    case SWITCH_CARD:
       return {
         ...state,
         activeCardId: payload.id
       }
-    case 'NEW_CARD':
+    case NEW_CARD:
       return {
         ...state,
         activeCardId: ''
       }
-    case 'DELETE_CARD':
+    case DELETE_CARD:
       // TODO: if activeCardId is the deleted card, create new one
       return {
         ...state,

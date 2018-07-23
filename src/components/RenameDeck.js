@@ -22,6 +22,7 @@ export default class RenameDeck extends Component {
       <div>
         <div className="black">
           <input
+            autoFocus
             value={this.state.renamed}
             onChange={e => this.typeName(e.target.value)}
           />

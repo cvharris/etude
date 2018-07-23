@@ -1,20 +1,30 @@
+import {
+  DELETE_CARD,
+  NEW_CARD,
+  SWITCH_CARD,
+  UPDATE_CARD_BACK,
+  UPDATE_CARD_DECK,
+  UPDATE_CARD_FRONT,
+  UPDATE_DIFFICULTY,
+  UPDATE_NEED
+} from '../conf/ActionTypes'
 import FlashCard from '../lib/FlashCard'
 import Markdown from '../lib/markdown'
 
 export const handleCardFrontUpdate = cardFront => ({
-  type: 'UPDATE_CARD_FRONT',
+  type: UPDATE_CARD_FRONT,
   payload: cardFront
 })
 export const handleCardBackUpdate = cardBack => ({
-  type: 'UPDATE_CARD_BACK',
+  type: UPDATE_CARD_BACK,
   payload: cardBack
 })
 export const updateDeck = deckId => ({
-  type: 'UPDATE_CARD_DECK',
+  type: UPDATE_CARD_DECK,
   payload: deckId
 })
 export const updateDifficulty = difficulty => ({
-  type: 'UPDATE_DIFFICULTY',
+  type: UPDATE_DIFFICULTY,
   payload: difficulty
 })
 export const updateNeed = need => ({ type: 'UPDATE_NEED', payload: need })
@@ -24,26 +34,26 @@ export const initialState = new FlashCard()
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'NEW_CARD':
+    case NEW_CARD:
       return new FlashCard()
-    case 'SWITCH_CARD':
+    case SWITCH_CARD:
       return { ...action.payload }
-    case 'UPDATE_CARD_DECK':
+    case UPDATE_CARD_DECK:
       return {
         ...state,
         deckId: action.payload
       }
-    case 'UPDATE_DIFFICULTY':
+    case UPDATE_DIFFICULTY:
       return {
         ...state,
         difficulty: action.payload
       }
-    case 'UPDATE_NEED':
+    case UPDATE_NEED:
       return {
         ...state,
         studyNeed: action.payload
       }
-    case 'UPDATE_CARD_BACK':
+    case UPDATE_CARD_BACK:
       return {
         ...state,
         back: {
@@ -51,7 +61,7 @@ export default (state = initialState, action) => {
           renderedText: md.render(action.payload)
         }
       }
-    case 'UPDATE_CARD_FRONT':
+    case UPDATE_CARD_FRONT:
       return {
         ...state,
         front: {
@@ -59,7 +69,7 @@ export default (state = initialState, action) => {
           renderedText: md.render(action.payload)
         }
       }
-    case 'DELETE_CARD':
+    case DELETE_CARD:
       return action.payload.id === state.id ? new FlashCard() : state
     default:
       return state

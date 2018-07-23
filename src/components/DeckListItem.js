@@ -27,7 +27,6 @@ export default class DeckListItem extends Component {
   toggleOptionsPopup = () => {
     this.setState({
       ...this.state,
-      renameOpen: false,
       optionsOpen: !this.state.optionsOpen
     })
   }
@@ -35,37 +34,45 @@ export default class DeckListItem extends Component {
   toggleRenamePopup = () => {
     this.setState({
       clickCount: 0, // NOTE: side-effect?
-      optionsOpen: false,
       renameOpen: !this.state.renameOpen
     })
   }
 
   renameDeck = renamed => {
     this.props.handleRenamingDeck({ ...this.props.deck, name: renamed })
+    this.toggleRenamePopup()
   }
 
   handleMouseDown = e => {
     e.preventDefault()
     e.stopPropagation()
-    if (e.button === 1 || e.button === 2) {
-      this.toggleOptionsPopup(e)
-    } else if (e.button === 0) {
-      if (this.state.clickCount === 1) {
-        this.toggleRenamePopup()
-      } else {
-        this.clickTimeout = setTimeout(() => {
-          if (this.state.clickCount === 1) {
-            this.props.toSwitchDeck(this.props.deck.id)
-            this.setState({
-              ...this.state,
-              clickCount: 0
-            })
-          }
-        }, 250)
-        this.setState({
-          ...this.state,
-          clickCount: this.state.clickCount + 1
-        })
+    if (e.target.classList.contains('popup-overlay')) {
+      this.setState({
+        ...this.state,
+        renameOpen: false,
+        optionsOpen: false
+      })
+    } else {
+      if (e.button === 1 || e.button === 2) {
+        this.toggleOptionsPopup(e)
+      } else if (e.button === 0) {
+        if (this.state.clickCount === 1) {
+          this.toggleRenamePopup()
+        } else {
+          this.clickTimeout = setTimeout(() => {
+            if (this.state.clickCount === 1) {
+              this.props.toSwitchDeck(this.props.deck.id)
+              this.setState({
+                ...this.state,
+                clickCount: 0
+              })
+            }
+          }, 250)
+          this.setState({
+            ...this.state,
+            clickCount: this.state.clickCount + 1
+          })
+        }
       }
     }
   }
@@ -88,7 +95,6 @@ export default class DeckListItem extends Component {
           )}
           open={renameOpen}
           position="bottom left"
-          onClose={this.toggleRenamePopup}
         >
           <RenameDeck
             deckName={deck.name}
@@ -102,7 +108,6 @@ export default class DeckListItem extends Component {
           )}
           open={optionsOpen}
           position="right top"
-          onClose={this.toggleOptionsPopup}
         >
           <DeckMenu
             toggleOptionsPopup={this.toggleOptionsPopup}
