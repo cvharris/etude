@@ -6,6 +6,7 @@ import Select from 'react-select'
 import Editor from '../components/Editor'
 import Preview from '../components/Preview'
 import CardDifficulty from '../lib/CardDifficulty'
+import FlashCard from '../lib/FlashCard'
 import StudyNeed from '../lib/StudyNeed'
 import { getDeckSelectList } from '../reducers/decks'
 import {
@@ -18,6 +19,7 @@ import {
 import {
   createCard,
   getDecksCardsLength,
+  newFlashCard,
   saveCard
 } from '../reducers/flashCards'
 
@@ -34,6 +36,7 @@ class FlashCardEditor extends Component {
     updateDeck: PropTypes.func,
     updateDifficulty: PropTypes.func,
     updateNeed: PropTypes.func,
+    newFlashCard: PropTypes.func,
     activeDeckId: PropTypes.string
   }
 
@@ -111,6 +114,14 @@ class FlashCardEditor extends Component {
     })
   }
 
+  onKeyCmdCreateNewCard = e => {
+    if (e.metaKey && e.which === 13) {
+      e.stopPropagation()
+      e.preventDefault()
+      this.props.newFlashCard(new FlashCard())
+    }
+  }
+
   render() {
     const {
       flashCard,
@@ -135,7 +146,11 @@ class FlashCardEditor extends Component {
     )[0]
 
     return (
-      <div id="editor" className="flex-auto mh3">
+      <div
+        id="editor"
+        className="mh3 vh-100 overflow-auto"
+        onKeyDown={e => this.onKeyCmdCreateNewCard(e)}
+      >
         <div className="card-header flex items-center">
           <Select
             className="flex-auto"
@@ -210,6 +225,7 @@ export default connect(
   {
     handleCardFrontUpdate,
     handleCardBackUpdate,
+    newFlashCard,
     createCard,
     saveCard,
     updateDifficulty,

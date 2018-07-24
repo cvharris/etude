@@ -48,6 +48,12 @@ body {
   grid-template-rows: 50px auto 1fr;
 }
 
+.card-list-item:hover .card-list-item-action {
+  display: flex;
+}
+
+
+
 #card-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -100,12 +106,6 @@ textarea {
   text-align: center;
   resize: none;
   outline: 0px solid white !important;
-}
-
-.flash-card-list {
-  width: 300px;
-  flex: 0 0 300px;
-  max-width: 300px;
 }
 
 .math-inline, .math-block {

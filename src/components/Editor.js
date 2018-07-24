@@ -15,6 +15,7 @@ export default class Editor extends Component {
 
   componentDidUpdate() {
     this.calcTextAreaHeight()
+    this.focusEditorArea()
     this.onInput()
   }
 
@@ -45,6 +46,7 @@ export default class Editor extends Component {
       >
         <textarea
           ref={e => (this.textAreaEl = e)}
+          autoFocus={true}
           value={rawText}
           style={{ height: `${this.calcTextAreaHeight()}px` }}
           placeholder="start typing"

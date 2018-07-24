@@ -71,7 +71,7 @@ export default class Etude extends Component {
   render() {
     const { currentlyEditing } = this.state
     return (
-      <div id="etude" className="avenir">
+      <div id="etude" className="avenir vh-100 overflow-hidden">
         <Sidebar />
         <FlashCardList />
         <FlashCardEditor activeFlashCard={currentlyEditing} />

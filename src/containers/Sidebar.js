@@ -1,11 +1,16 @@
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import DeckListItem from '../components/DeckListItem';
-import Deck from '../lib/Deck';
-import { createDeck, getActiveDecks, removeDeck, updateDeck } from '../reducers/decks';
-import { switchDeck } from '../reducers/sidebar';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import DeckListItem from '../components/DeckListItem'
+import Deck from '../lib/Deck'
+import {
+  createDeck,
+  getActiveDecks,
+  removeDeck,
+  updateDeck
+} from '../reducers/decks'
+import { switchDeck } from '../reducers/sidebar'
 
 export class Sidebar extends Component {
   static propTypes = {
@@ -45,10 +50,7 @@ export class Sidebar extends Component {
     } = this.props
 
     return (
-      <div
-        id="sidebar"
-        className="bg-dark-gray flex-grow-1 white flex flex-column"
-      >
+      <div id="sidebar" className="bg-dark-gray white vh-100 overflow-hidden">
         <h4 className="white f4 mv2 ph3 pv2 fw1">Etude</h4>
         <h4 className="bg-red fw4 mv2 f5 ph3 pv2 nowrap pointer">
           <FontAwesomeIcon icon="window-restore" />

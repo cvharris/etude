@@ -14,7 +14,6 @@ module.exports = {
   },
   plugins: ["prettier"],
   extends: [
-    "react-app",
     "eslint:recommended",
     "plugin:react/recommended",
     require.resolve("eslint-config-prettier")

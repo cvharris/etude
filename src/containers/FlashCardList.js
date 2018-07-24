@@ -66,10 +66,11 @@ class FlashCardList extends Component {
       switchCard,
       deleteCard,
       flashCards,
-      restoreCard
+      restoreCard,
+      activeCardId
     } = this.props
     return (
-      <div className="flash-card-list bg-white flex-grow-1 b--black br">
+      <div className="flash-card-list bg-white flex-grow-1 b--black br vh-100 overflow-auto">
         <div className="filter-cards flex items-center justify-end bb b--light-gray">
           <label>
             <input
@@ -99,6 +100,7 @@ class FlashCardList extends Component {
               handleDelete={deleteCard}
               handleRestore={restoreCard}
               card={card}
+              activeCardId={activeCardId}
               key={i}
             />
           ))}

@@ -6,31 +6,28 @@ export default function CardListItem({
   card,
   handleSelect,
   handleDelete,
-  handleRestore
+  handleRestore,
+  activeCardId
 }) {
   return (
-    <div className="card-list-item bb b--light-gray">
+    <div className="card-list-item bb b--light-gray pointer">
       <div className="flex items-stretch">
         <div
-          className="card-list-item-body pa3 flex-auto hover-bg-light-gray"
+          className={`card-list-item-body pa3 flex-auto hover-bg-light-gray hover-black ${
+            activeCardId === card.id ? 'bg-light-gray black fw5' : 'mid-gray'
+          }`}
           onClick={() => handleSelect(card)}
         >
           {card.front.rawText && (
-            <p className="mt0 mb1 truncate">
-              <span className="fw6 pr2">F:</span>
-              {card.front.rawText}
-            </p>
+            <p className="mt0 mb1 pb1 truncate">{card.front.rawText}</p>
           )}
           {card.back.rawText && (
-            <p className="mv0 truncate">
-              <span className="fw6 pr2">B:</span>
-              {card.back.rawText}
-            </p>
+            <p className="mv0 pt1 truncate">{card.back.rawText}</p>
           )}
         </div>
         {card.isTrashed && (
           <div
-            className="card-list-item-delete pointer bg-light-blue white pa3 flex items-center"
+            className="card-list-item-action dn pointer bg-light-blue white pa3 items-center"
             onClick={() => handleRestore(card)}
           >
             <FontAwesomeIcon icon="share" />
@@ -38,7 +35,7 @@ export default function CardListItem({
         )}
         {!card.isTrashed && (
           <div
-            className="card-list-item-delete pointer bg-red white pa3 flex items-center"
+            className="card-list-item-action dn pointer bg-red white pa3 items-center"
             onClick={() => handleDelete(card.id)}
           >
             <FontAwesomeIcon icon="trash-alt" />
@@ -53,5 +50,6 @@ CardListItem.propTypes = {
   card: PropTypes.object,
   handleRestore: PropTypes.func,
   handleSelect: PropTypes.func,
-  handleDelete: PropTypes.func
+  handleDelete: PropTypes.func,
+  activeCardId: PropTypes.string
 }
