@@ -1,3 +1,4 @@
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -41,7 +42,8 @@ class FlashCardEditor extends Component {
   }
 
   state = {
-    editingFront: true
+    editingFront: true,
+    showingPreview: false
   }
 
   constructor(props) {
@@ -110,7 +112,15 @@ class FlashCardEditor extends Component {
     }
 
     this.setState({
+      ...this.state,
       editingFront: side === 'front'
+    })
+  }
+
+  togglePreview = () => {
+    this.setState({
+      ...this.state,
+      showingPreview: !this.state.showingPreview
     })
   }
 
@@ -132,14 +142,27 @@ class FlashCardEditor extends Component {
     } = this.props
     if (!flashCard) {
       return (
-        <div id="editor" className="center">
-          <div className="card-header mt5 fw7">{`${cardsInDeck} card${
-            cardsInDeck === 1 ? '' : 's'
-          }`}</div>
+        <div id="editor">
+          <div />
+          <div className="center tc">
+            <div className="card-header mt5 fw7">{`${cardsInDeck} card${
+              cardsInDeck === 1 ? '' : 's'
+            }`}</div>
+            <div className="serif i mt5 lh-title">
+              <span>Click the </span>
+              <FontAwesomeIcon icon="plus-square" />
+              <span>
+                {' '}
+                button
+                <br />
+                to create your first card!
+              </span>
+            </div>
+          </div>
         </div>
       )
     }
-    const { editingFront } = this.state
+    const { editingFront, showingPreview } = this.state
     const side = editingFront ? flashCard.front : flashCard.back
     const selectedDeck = deckValues.filter(
       deck => flashCard.deckId === deck.value
@@ -183,31 +206,36 @@ class FlashCardEditor extends Component {
             isSearchable={true}
           />
         </div>
-        <div className="side-toggle flex justify-center">
-          <div
-            onClick={() => this.switchSide('front')}
-            className={`bt br bl b--black br2 pv2 ph3 ${
-              editingFront
-                ? 'bg-white black'
-                : 'bg-gray dark-gray hover-bg-light-gray pointer'
-            }`}
-          >
-            Front
-          </div>
-          <div
-            onClick={() => this.switchSide('back')}
-            className={`bt br bl b--black br2 pv2 ph3 ${
-              !editingFront
-                ? 'bg-white black'
-                : 'bg-gray dark-gray hover-bg-light-gray pointer'
-            }`}
-          >
-            Back
-          </div>
-        </div>
         <div id="card-grid">
-          <Editor rawText={side.rawText} handleUpdate={this.renderRawText} />
-          <Preview renderedText={side.renderedText} />
+          <div id="the-card" className="card card-size relative z-1">
+            <div
+              onClick={() => this.switchSide(!editingFront ? 'front' : 'back')}
+              className="absolute pa2 ma2 top-0 left-0 z-2 light-silver hover-mid-gray pointer"
+            >
+              {!editingFront ? 'Front' : 'Back'}
+              <FontAwesomeIcon
+                className="pl1"
+                icon={!editingFront ? 'level-up-alt' : 'level-down-alt'}
+              />
+            </div>
+            <div
+              onClick={() => this.togglePreview()}
+              className="absolute pa2 ma2 top-0 right-0 z-2 light-silver hover-mid-gray pointer"
+            >
+              <FontAwesomeIcon
+                className="pr1"
+                icon={!showingPreview ? 'eye' : 'edit'}
+              />
+              {!showingPreview ? 'Preview' : 'Edit'}
+            </div>
+            {!showingPreview && (
+              <Editor
+                rawText={side.rawText}
+                handleUpdate={this.renderRawText}
+              />
+            )}
+            {showingPreview && <Preview renderedText={side.renderedText} />}
+          </div>
         </div>
       </div>
     )

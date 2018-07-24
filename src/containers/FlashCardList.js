@@ -72,10 +72,10 @@ class FlashCardList extends Component {
     return (
       <div className="flash-card-list bg-white flex-grow-1 b--black br vh-100 overflow-auto">
         <div className="filter-cards flex items-center justify-end bb b--light-gray">
-          <label>
+          <label className="ml3 mv2 br2 b--light-gray flex-flex-auto">
             <input
               placeholder="Search..."
-              className="input-reset ml3 mv2 br2 b--light-gray"
+              className="input-reset w-100"
               value={this.state.filterString}
               onChange={this.filterCardList}
             />

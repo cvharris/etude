@@ -27,7 +27,6 @@ export default class Preview extends Component {
     return (
       <div
         id="preview-box"
-        className="card card-size"
         dangerouslySetInnerHTML={{ __html: renderedText }}
       />
     )

@@ -40,21 +40,16 @@ export default class Editor extends Component {
     const { rawText } = this.props
 
     return (
-      <div
-        className="card card-size card-editor"
-        onClick={this.focusEditorArea}
-      >
-        <textarea
-          ref={e => (this.textAreaEl = e)}
-          autoFocus={true}
-          value={rawText}
-          style={{ height: `${this.calcTextAreaHeight()}px` }}
-          placeholder="start typing"
-          onChange={this.emitChange}
-          onInput={this.onInput}
-          onBlur={this.props.onBlur || this.emitChange}
-        />
-      </div>
+      <textarea
+        ref={e => (this.textAreaEl = e)}
+        autoFocus={true}
+        value={rawText}
+        style={{ height: `${this.calcTextAreaHeight()}px` }}
+        placeholder="start typing"
+        onChange={this.emitChange}
+        onInput={this.onInput}
+        onBlur={this.props.onBlur || this.emitChange}
+      />
     )
   }
 }
