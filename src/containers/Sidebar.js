@@ -1,16 +1,11 @@
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import DeckListItem from '../components/DeckListItem'
-import Deck from '../lib/Deck'
-import {
-  createDeck,
-  getActiveDecks,
-  removeDeck,
-  updateDeck
-} from '../reducers/decks'
-import { switchDeck } from '../reducers/sidebar'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import DeckListItem from '../components/DeckListItem';
+import Deck from '../lib/Deck';
+import { createDeck, getActiveDecks, removeDeck, updateDeck } from '../reducers/decks';
+import { switchDeck } from '../reducers/sidebar';
 
 export class Sidebar extends Component {
   static propTypes = {
