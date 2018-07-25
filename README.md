@@ -4,6 +4,8 @@
 
 [Etude App](https://cvharris.github.io/etude)
 
+![Etude Preview](https://image.ibb.co/bXsAUT/0_2_1_Preview.gif)
+
 I made this app while studying for the GMAT to help me generate physical flash cards of my own with complex math latex
 
 ## Features
