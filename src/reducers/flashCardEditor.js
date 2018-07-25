@@ -5,21 +5,30 @@ import {
   NEW_CARD,
   RESTORE_CARD,
   SWITCH_CARD,
-  UPDATE_CARD_BACK,
+  UPDATE_BACK_RAW,
+  UPDATE_BACK_RENDERED,
   UPDATE_CARD_DECK,
-  UPDATE_CARD_FRONT,
   UPDATE_DIFFICULTY,
+  UPDATE_FRONT_RAW,
+  UPDATE_FRONT_RENDERED,
   UPDATE_NEED
 } from '../conf/ActionTypes'
-import Markdown from '../lib/markdown'
 
-export const handleCardFrontUpdate = cardFront => ({
-  type: UPDATE_CARD_FRONT,
-  payload: cardFront
+export const saveFrontRaw = frontRaw => ({
+  type: UPDATE_FRONT_RAW,
+  payload: frontRaw
 })
-export const handleCardBackUpdate = cardBack => ({
-  type: UPDATE_CARD_BACK,
-  payload: cardBack
+export const saveBackRaw = backRaw => ({
+  type: UPDATE_BACK_RAW,
+  payload: backRaw
+})
+export const saveFrontRendered = frontRendered => ({
+  type: UPDATE_FRONT_RENDERED,
+  payload: frontRendered
+})
+export const saveBackRendered = backRendered => ({
+  type: UPDATE_BACK_RENDERED,
+  payload: backRendered
 })
 export const updateDeck = deckId => ({
   type: UPDATE_CARD_DECK,
@@ -31,7 +40,6 @@ export const updateDifficulty = difficulty => ({
 })
 export const updateNeed = need => ({ type: 'UPDATE_NEED', payload: need })
 
-const md = new Markdown()
 export const initialState = null
 
 export default (state = initialState, action) => {
@@ -61,20 +69,36 @@ export default (state = initialState, action) => {
         ...state,
         studyNeed: payload
       }
-    case UPDATE_CARD_BACK:
+    case UPDATE_BACK_RAW:
       return {
         ...state,
         back: {
           rawText: payload,
-          renderedText: md.render(payload)
+          renderedText: state.back.renderedText
         }
       }
-    case UPDATE_CARD_FRONT:
+    case UPDATE_FRONT_RAW:
       return {
         ...state,
         front: {
           rawText: payload,
-          renderedText: md.render(payload)
+          renderedText: state.front.renderedText
+        }
+      }
+    case UPDATE_BACK_RENDERED:
+      return {
+        ...state,
+        back: {
+          rawText: state.back.rawText,
+          renderedText: payload
+        }
+      }
+    case UPDATE_FRONT_RENDERED:
+      return {
+        ...state,
+        front: {
+          rawText: state.front.rawText,
+          renderedText: payload
         }
       }
     case DELETE_CARD:

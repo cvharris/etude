@@ -66,7 +66,7 @@ export const getActiveDecks = createSelector([allDecks], decks =>
 
 export const getCurrentDeck = createSelector(
   [getActiveDecks, currentDeckId],
-  decks => decks.find(deck => deck.id === currentDeckId)
+  (decks, currentDeckId) => decks.filter(deck => deck.id === currentDeckId)[0]
 )
 
 export const getDecks = createSelector([getActiveDecks], decks => decks)

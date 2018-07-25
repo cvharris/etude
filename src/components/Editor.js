@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 export default class Editor extends Component {
   static propTypes = {
     handleUpdate: PropTypes.func,
+    hidden: PropTypes.bool,
     onBlur: PropTypes.func,
     rawText: PropTypes.string
   }
@@ -37,18 +38,18 @@ export default class Editor extends Component {
   }
 
   render() {
-    const { rawText } = this.props
+    const { rawText, hidden } = this.props
 
     return (
       <textarea
         ref={e => (this.textAreaEl = e)}
         autoFocus={true}
+        className={hidden ? 'clip' : ''}
         value={rawText}
         style={{ height: `${this.calcTextAreaHeight()}px` }}
         placeholder="start typing"
         onChange={this.emitChange}
         onInput={this.onInput}
-        onBlur={this.props.onBlur || this.emitChange}
       />
     )
   }

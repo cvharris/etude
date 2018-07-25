@@ -11,8 +11,10 @@ import FlashCard from '../lib/FlashCard'
 import StudyNeed from '../lib/StudyNeed'
 import { getDeckSelectList } from '../reducers/decks'
 import {
-  handleCardBackUpdate,
-  handleCardFrontUpdate,
+  saveBackRaw,
+  saveBackRendered,
+  saveFrontRaw,
+  saveFrontRendered,
   updateDeck,
   updateDifficulty,
   updateNeed
@@ -32,8 +34,10 @@ class FlashCardEditor extends Component {
     activeCardId: PropTypes.string,
     createCard: PropTypes.func,
     saveCard: PropTypes.func,
-    handleCardBackUpdate: PropTypes.func,
-    handleCardFrontUpdate: PropTypes.func,
+    saveFrontRaw: PropTypes.func,
+    saveBackRaw: PropTypes.func,
+    saveFrontRendered: PropTypes.func,
+    saveBackRendered: PropTypes.func,
     updateDeck: PropTypes.func,
     updateDifficulty: PropTypes.func,
     updateNeed: PropTypes.func,
@@ -70,7 +74,7 @@ class FlashCardEditor extends Component {
 
   handleUpdateCard() {
     const { activeCardId, createCard, saveCard, flashCard } = this.props
-    if (flashCard.front.rawText || flashCard.back.rawText) {
+    if (flashCard && (flashCard.front.rawText || flashCard.back.rawText)) {
       if (activeCardId !== flashCard.id) {
         createCard(flashCard)
       } else {
@@ -96,10 +100,17 @@ class FlashCardEditor extends Component {
     this.handleUpdateCard()
   }
 
-  renderRawText = newRawText => {
+  saveRawText = newRawText => {
     this.state.editingFront
-      ? this.props.handleCardFrontUpdate(newRawText)
-      : this.props.handleCardBackUpdate(newRawText)
+      ? this.props.saveFrontRaw(newRawText)
+      : this.props.saveBackRaw(newRawText)
+    this.handleUpdateCard()
+  }
+
+  saveRenderedText = newRenderedText => {
+    this.state.editingFront
+      ? this.props.saveFrontRendered(newRenderedText)
+      : this.props.saveBackRendered(newRenderedText)
     this.handleUpdateCard()
   }
 
@@ -228,13 +239,16 @@ class FlashCardEditor extends Component {
               />
               {!showingPreview ? 'Preview' : 'Edit'}
             </div>
-            {!showingPreview && (
-              <Editor
-                rawText={side.rawText}
-                handleUpdate={this.renderRawText}
-              />
-            )}
-            {showingPreview && <Preview renderedText={side.renderedText} />}
+            <Editor
+              hidden={showingPreview}
+              rawText={side.rawText}
+              handleUpdate={this.saveRawText}
+            />
+            <Preview
+              hidden={!showingPreview}
+              rawText={side.rawText}
+              onRender={this.saveRenderedText}
+            />
           </div>
         </div>
       </div>
@@ -251,8 +265,10 @@ export default connect(
     activeDeckId: state.sidebar.activeDeckId
   }),
   {
-    handleCardFrontUpdate,
-    handleCardBackUpdate,
+    saveFrontRaw,
+    saveBackRaw,
+    saveFrontRendered,
+    saveBackRendered,
     newFlashCard,
     createCard,
     saveCard,

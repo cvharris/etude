@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import CardListItem from '../components/CardListItem'
 import FlashCard from '../lib/FlashCard'
 import PrintCards from '../lib/PrintCards'
+import { getCurrentDeck } from '../reducers/decks'
 import {
   deleteCard,
   getDecksCards,
@@ -21,7 +22,8 @@ class FlashCardList extends Component {
     switchCard: PropTypes.func,
     deleteCard: PropTypes.func,
     flashCards: PropTypes.array,
-    restoreCard: PropTypes.func
+    restoreCard: PropTypes.func,
+    currentDeck: PropTypes.object
   }
 
   constructor(props) {
@@ -57,7 +59,7 @@ class FlashCardList extends Component {
   }
 
   printFlashCards() {
-    new PrintCards(this.props.flashCards)
+    new PrintCards(this.props.flashCards, this.props.currentDeck.name)
   }
 
   render() {
@@ -112,6 +114,7 @@ class FlashCardList extends Component {
 
 export default connect(
   state => ({
+    currentDeck: getCurrentDeck(state),
     flashCards:
       state.sidebar.activeDeckId === 'trash'
         ? getTrashedCards(state)

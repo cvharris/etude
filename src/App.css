@@ -55,8 +55,12 @@ body {
 }
 
 #preview-box {
-  width: calc(6in - 2pc);
+  width: 6in;
   height: 4in;
+}
+
+#preview-box p {
+  margin: 0;
 }
 
 @media (min-width: 600px) and (min-height: 300px) {

@@ -1,19 +1,22 @@
 import * as html2pdf from 'html2pdf.js'
 window.html2pdf = html2pdf
 
+const openTag =
+  '<div style="display: flex; height: 3.75in; width: 5.75in; justify-content: center; align-items: center;">'
+
 class PrintCards {
-  constructor(cards = []) {
-    this.cardsToPrint = cards
+  constructor(cards = [], deckName = '') {
     const html = cards.reduce((pdfHtml, card, i) => {
       const frontHtml =
         i === 0
-          ? card.front.renderedText
+          ? `${openTag}${card.front.renderedText}</div>`
           : this.addPageBreak(card.front.renderedText)
       return `${pdfHtml}${frontHtml}${this.addPageBreak(
         card.back.renderedText
       )}`
     }, '')
     html2pdf(this.htmlToElement(html), {
+      filename: `Etude ${deckName} Cards.pdf`,
       jsPDF: {
         orientation: 'l',
         unit: 'in',
@@ -23,7 +26,7 @@ class PrintCards {
   }
 
   addPageBreak(html = '') {
-    return `<div class="html2pdf__page-break"></div>${html}`
+    return `<div class="html2pdf__page-break"></div>${openTag}${html}</div>`
   }
 
   htmlToElement(html) {
