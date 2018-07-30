@@ -5,30 +5,20 @@ import {
   NEW_CARD,
   RESTORE_CARD,
   SWITCH_CARD,
-  UPDATE_BACK_RAW,
-  UPDATE_BACK_RENDERED,
+  UPDATE_BACK,
   UPDATE_CARD_DECK,
   UPDATE_DIFFICULTY,
-  UPDATE_FRONT_RAW,
-  UPDATE_FRONT_RENDERED,
+  UPDATE_FRONT,
   UPDATE_NEED
 } from '../conf/ActionTypes'
 
-export const saveFrontRaw = frontRaw => ({
-  type: UPDATE_FRONT_RAW,
+export const saveFront = frontRaw => ({
+  type: UPDATE_FRONT,
   payload: frontRaw
 })
-export const saveBackRaw = backRaw => ({
-  type: UPDATE_BACK_RAW,
+export const saveBack = backRaw => ({
+  type: UPDATE_BACK,
   payload: backRaw
-})
-export const saveFrontRendered = frontRendered => ({
-  type: UPDATE_FRONT_RENDERED,
-  payload: frontRendered
-})
-export const saveBackRendered = backRendered => ({
-  type: UPDATE_BACK_RENDERED,
-  payload: backRendered
 })
 export const updateDeck = deckId => ({
   type: UPDATE_CARD_DECK,
@@ -69,37 +59,15 @@ export default (state = initialState, action) => {
         ...state,
         studyNeed: payload
       }
-    case UPDATE_BACK_RAW:
+    case UPDATE_BACK:
       return {
         ...state,
-        back: {
-          rawText: payload,
-          renderedText: state.back.renderedText
-        }
+        back: payload
       }
-    case UPDATE_FRONT_RAW:
+    case UPDATE_FRONT:
       return {
         ...state,
-        front: {
-          rawText: payload,
-          renderedText: state.front.renderedText
-        }
-      }
-    case UPDATE_BACK_RENDERED:
-      return {
-        ...state,
-        back: {
-          rawText: state.back.rawText,
-          renderedText: payload
-        }
-      }
-    case UPDATE_FRONT_RENDERED:
-      return {
-        ...state,
-        front: {
-          rawText: state.front.rawText,
-          renderedText: payload
-        }
+        front: payload
       }
     case DELETE_CARD:
       return payload === state.id ? null : state

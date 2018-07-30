@@ -7,13 +7,7 @@ export default function FlashCard() {
   this.deckId = ''
   this.difficulty = CardDifficulty.NORMAL
   this.studyNeed = StudyNeed.KNOW
-  this.front = {
-    rawText: '',
-    renderedText: ''
-  }
-  this.back = {
-    rawText: '',
-    renderedText: ''
-  }
+  this.front = ''
+  this.back = ''
   this.isTrashed = false
 }

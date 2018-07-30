@@ -1,4 +1,5 @@
 import * as html2pdf from 'html2pdf.js'
+import md from '../lib/markdown'
 window.html2pdf = html2pdf
 
 const openTag =
@@ -9,11 +10,9 @@ class PrintCards {
     const html = cards.reduce((pdfHtml, card, i) => {
       const frontHtml =
         i === 0
-          ? `${openTag}${card.front.renderedText}</div>`
-          : this.addPageBreak(card.front.renderedText)
-      return `${pdfHtml}${frontHtml}${this.addPageBreak(
-        card.back.renderedText
-      )}`
+          ? `${openTag}${md.render(card.front)}</div>`
+          : this.addPageBreak(md.render(card.front))
+      return `${pdfHtml}${frontHtml}${this.addPageBreak(md.render(card.back))}`
     }, '')
     html2pdf(this.htmlToElement(html), {
       filename: `Etude ${deckName} Cards.pdf`,

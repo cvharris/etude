@@ -22,7 +22,7 @@ export default class Etude extends Component {
     const found = this.state.flashCards.filter(card => card.id === flashCard.id)
 
     if (!found.length) {
-      if (flashCard.front.rawText || flashCard.back.rawText) {
+      if (flashCard.front || flashCard.back) {
         this.setState({
           ...this.state,
           flashCards: [...this.state.flashCards, flashCard],

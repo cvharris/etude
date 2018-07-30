@@ -4,17 +4,15 @@ import markdownit from 'markdown-it'
 import math from 'markdown-it-math'
 
 class Markdown {
-  constructor(options) {
-    const defaultOptions = {
+  constructor() {
+    this.md = markdownit({
       typographer: true,
       linkify: true,
       html: true,
       xhtmlOut: false,
       breaks: true,
-      highlight: (str, lang) => ''
-    }
-    const updatedOptions = Object.assign(defaultOptions, options)
-    this.md = markdownit(updatedOptions)
+      highlight: () => ''
+    })
 
     this.md.disable(['heading', 'table', 'code']).use(math, {
       inlineOpen: '$',
@@ -51,4 +49,4 @@ class Markdown {
   }
 }
 
-export default Markdown
+export default new Markdown()
