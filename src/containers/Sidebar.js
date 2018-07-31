@@ -19,6 +19,8 @@ export class Sidebar extends Component {
     switchDeck: PropTypes.func,
     createDeck: PropTypes.func,
     updateDeck: PropTypes.func,
+    switchView: PropTypes.func,
+    currentView: PropTypes.string,
     removeDeck: PropTypes.func
   }
 
@@ -46,17 +48,29 @@ export class Sidebar extends Component {
       activeDeckId,
       switchDeck,
       updateDeck,
+      switchView,
+      currentView,
       removeDeck
     } = this.props
 
     return (
-      <div id="sidebar" className="bg-dark-gray white vh-100 overflow-hidden">
+      <div id="sidebar" className="bg-dark-gray white vh-100">
         <h4 className="white f4 mv2 ph3 pv2 fw1">Etude</h4>
-        <h4 className="bg-red fw4 mv2 f5 ph3 pv2 nowrap pointer">
+        <h4
+          className={`fw4 mv2 f5 ph3 pv2 nowrap pointer ${
+            currentView === 'cards' ? 'bg-red' : 'gray'
+          }`}
+          onClick={() => switchView('cards')}
+        >
           <FontAwesomeIcon icon="window-restore" />
           <span className="pl2">Flash Cards</span>
         </h4>
-        <h4 className="fw4 mv2 f5 ph3 pv2 nowrap pointer gray">
+        <h4
+          className={`fw4 mv2 f5 ph3 pv2 nowrap pointer ${
+            currentView === 'runner' ? 'bg-red' : 'gray'
+          }`}
+          onClick={() => switchView('runner')}
+        >
           <FontAwesomeIcon icon="dumbbell" />
           <span className="pl2">Practice</span>
         </h4>

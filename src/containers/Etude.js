@@ -2,15 +2,20 @@ import React, { Component } from 'react'
 import FlashCardEditor from '../containers/FlashCardEditor'
 import FlashCardList from '../containers/FlashCardList'
 import Sidebar from '../containers/Sidebar'
+import PracticeRuns from './PracticeRuns'
+import RunSummary from './RunSummary'
 
 export default class Etude extends Component {
+  state = {
+    flashCards: [],
+    activeTag: 'all',
+    currentlyEditing: null,
+    activeRun: null,
+    currentView: 'cards'
+  }
+
   constructor(props) {
     super(props)
-    this.state = {
-      flashCards: [],
-      activeTag: 'all',
-      currentlyEditing: null
-    }
 
     this.handleFlashCardUpdates = this.handleFlashCardUpdates.bind(this)
     this.filterFlashCards = this.filterFlashCards.bind(this)
@@ -68,14 +73,32 @@ export default class Etude extends Component {
     )
   }
 
+  switchView = view => {
+    this.setState({
+      ...this.state,
+      currentView: view
+    })
+  }
+
   render() {
-    const { currentlyEditing } = this.state
-    return (
-      <div id="etude" className="avenir vh-100 overflow-hidden">
-        <Sidebar />
-        <FlashCardList />
-        <FlashCardEditor activeFlashCard={currentlyEditing} />
-      </div>
-    )
+    const { currentlyEditing, currentView, activeRun } = this.state
+
+    if (currentView === 'cards') {
+      return (
+        <div id="etude" className="avenir vh-100 overflow-hidden">
+          <Sidebar switchView={this.switchView} currentView={currentView} />
+          <FlashCardList />
+          <FlashCardEditor activeFlashCard={currentlyEditing} />
+        </div>
+      )
+    } else if (currentView === 'runner') {
+      return (
+        <div id="etude" className="avenir vh-100 overflow-hidden">
+          <Sidebar switchView={this.switchView} currentView={currentView} />
+          <PracticeRuns />
+          <RunSummary activeRun={activeRun} />
+        </div>
+      )
+    }
   }
 }

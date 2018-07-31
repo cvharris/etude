@@ -29,3 +29,6 @@ export const END_RUN = 'END_RUN'
 export const UPDATE_RUN = 'UPDATE_RUN'
 export const DELETE_RUN = 'DELETE_RUN'
 export const FINISH_CARD = 'FINISH_CARD'
+
+// run list
+export const SWITCH_RUN = 'SWITCH_RUN'

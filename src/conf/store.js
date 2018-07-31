@@ -5,6 +5,8 @@ import thunk from 'redux-thunk'
 import decks from '../reducers/decks'
 import flashCardEditor from '../reducers/flashCardEditor'
 import flashCards from '../reducers/flashCards'
+import practiceRun from '../reducers/practiceRun'
+import practiceRuns from '../reducers/practiceRuns'
 import sidebar from '../reducers/sidebar'
 import { saveState } from './localStorage'
 
@@ -14,7 +16,9 @@ const configureStore = persistedState => {
       flashCardEditor,
       flashCards,
       sidebar,
-      decks
+      decks,
+      practiceRun,
+      practiceRuns
     }),
     persistedState,
     composeWithDevTools(applyMiddleware(thunk))
@@ -26,7 +30,8 @@ const configureStore = persistedState => {
         flashCardEditor: store.getState().flashCardEditor,
         sidebar: store.getState().sidebar,
         decks: store.getState().decks,
-        flashCards: store.getState().flashCards
+        flashCards: store.getState().flashCards,
+        practiceRuns
       })
     }, 1000)
   )
