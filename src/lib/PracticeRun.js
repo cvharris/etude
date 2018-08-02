@@ -29,10 +29,7 @@ export default class PracticeRun {
     this.unpracticedCardIds = cards.map(card => card.id)
   }
 
-  getTotalTime = () => {
-    return Object.values(this.durationByCardId).reduce(
-      (sum, dur) => sum + dur,
-      0
-    )
+  getTotalTime = durationMap => {
+    return Object.values(durationMap).reduce((sum, dur) => sum + dur, 0)
   }
 }

@@ -25,7 +25,14 @@ class PracticeRunner extends Component {
     currentCard: null,
     flipped: false,
     cardStart: null,
+    secondsElapsed: 0,
     viewingBack: false
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.cardTimer = null
   }
 
   componentDidMount() {
@@ -48,10 +55,21 @@ class PracticeRunner extends Component {
         viewingBack: false,
         flipped: false,
         cardStart: new Date(),
+        secondsElapsed: 0,
         currentCard: nextCard
       })
       this.props.pickNextCard(nextCard.id)
+      this.cardTimer = setInterval(this.updateTimer, 1000)
     }
+  }
+
+  updateTimer = () => {
+    this.setState({
+      ...this.state,
+      secondsElapsed: Math.floor(
+        Math.abs(new Date().getTime() - this.state.cardStart.getTime()) / 1000
+      )
+    })
   }
 
   chooseRandomCard = () => {
@@ -62,6 +80,9 @@ class PracticeRunner extends Component {
     const duration =
       Math.abs(new Date().getTime() - this.state.cardStart.getTime()) / 1000
     this.props.setCardDuration(this.state.currentCard.id, duration)
+    if (this.cardTimer) {
+      clearInterval(this.cardTimer)
+    }
     this.setState({
       ...this.state,
       cardStart: null,
@@ -79,7 +100,7 @@ class PracticeRunner extends Component {
 
   render() {
     const { thisRun, closeSession, gradeCard } = this.props
-    const { currentCard, flipped, viewingBack } = this.state
+    const { currentCard, flipped, viewingBack, secondsElapsed } = this.state
 
     if (!currentCard) {
       return (
@@ -93,6 +114,7 @@ class PracticeRunner extends Component {
       )
     }
     const side = viewingBack ? currentCard.back : currentCard.front
+    const timeElapsed = thisRun.getTotalTime(thisRun.durationByCardId)
 
     return (
       <div className="vh-100 w-100 relative">
@@ -103,10 +125,17 @@ class PracticeRunner extends Component {
         />
         <h1 className="tc mv0 pv4">
           <span className="ph3">Practice Run</span>
-          <span className="fw3 f5">
-            {thisRun.cardIdsPracticeOrder.indexOf(currentCard.id) + 1}/
-            {thisRun.allCardIds.length}
-          </span>
+          {this.cardTimer && (
+            <span className="fw3 f5">
+              {thisRun.cardIdsPracticeOrder.indexOf(currentCard.id) + 1}/
+              {thisRun.allCardIds.length}
+            </span>
+          )}
+          <span className="fw3 f5 ph2">{`${
+            secondsElapsed / 60 >= 1
+              ? `${Math.floor(secondsElapsed / 60)}m `
+              : ''
+          }${secondsElapsed % 60}s`}</span>
         </h1>
         <div className="practice-area flex justify-center flex-wrap">
           <div id="the-card" className="card card-size relative z-1">
@@ -171,6 +200,9 @@ class PracticeRunner extends Component {
               )}
             </div>
           )}
+          <h1>{`${
+            timeElapsed / 60 >= 1 ? `${Math.floor(timeElapsed / 60)}m ` : ''
+          }${Math.floor(timeElapsed % 60)}s`}</h1>
         </div>
       </div>
     )
