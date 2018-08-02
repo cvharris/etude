@@ -9,6 +9,7 @@ import {
   SAVE_CARD,
   SWITCH_CARD
 } from '../conf/ActionTypes'
+import { currentDeckId } from './sidebar'
 
 // Actions
 export const createCard = newCard => ({ type: ADD_CARD, payload: newCard })
@@ -110,7 +111,6 @@ export default (state = initialState, action) => {
 // Selectors
 const flashCardsById = state => state.flashCards.byId
 const allFlashCardIds = state => state.flashCards.allIds
-const activeDeckId = state => state.sidebar.activeDeckId
 
 export const getActiveCards = createSelector(
   [allFlashCardIds, flashCardsById],
@@ -119,7 +119,7 @@ export const getActiveCards = createSelector(
 )
 
 export const getDecksCards = createSelector(
-  [getActiveCards, activeDeckId],
+  [getActiveCards, currentDeckId],
   (activeCards, deckId) => activeCards.filter(card => card.deckId === deckId)
 )
 

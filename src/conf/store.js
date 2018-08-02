@@ -26,12 +26,13 @@ const configureStore = persistedState => {
 
   store.subscribe(
     throttle(() => {
+      const state = store.getState()
       saveState({
-        flashCardEditor: store.getState().flashCardEditor,
-        sidebar: store.getState().sidebar,
-        decks: store.getState().decks,
-        flashCards: store.getState().flashCards,
-        practiceRuns
+        flashCardEditor: state.flashCardEditor,
+        sidebar: state.sidebar,
+        decks: state.decks,
+        flashCards: state.flashCards,
+        practiceRuns: state.practiceRuns
       })
     }, 1000)
   )

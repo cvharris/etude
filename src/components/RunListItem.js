@@ -6,16 +6,16 @@ export default function RunListItem({
   run,
   handleSelect,
   handleDelete,
-  activeRunId
+  selectedRunId
 }) {
   return (
     <div className="card-list-item bb b--light-gray pointer">
       <div className="flex items-stretch">
         <div
           className={`card-list-item-body pa3 flex-auto hover-bg-light-gray hover-black ${
-            activeRunId === run.id ? 'bg-light-gray black fw5' : 'mid-gray'
+            selectedRunId === run.id ? 'bg-light-gray black fw5' : 'mid-gray'
           }`}
-          onClick={() => handleSelect(run)}
+          onClick={() => handleSelect(run.id)}
         >
           {run.title && <p className="mt0 mb1 pb1 truncate">{run.title}</p>}
         </div>
@@ -35,5 +35,5 @@ RunListItem.propTypes = {
   handleRestore: PropTypes.func,
   handleSelect: PropTypes.func,
   handleDelete: PropTypes.func,
-  activeRunId: PropTypes.string
+  selectedRunId: PropTypes.string
 }

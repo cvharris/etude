@@ -35,10 +35,10 @@ export default function(state = initialState, action) {
         byId: { ...state.byId, [payload.id]: payload }
       }
     case DELETE_RUN:
-      const { [payload.id]: deletedRun, ...otherRuns } = state.byId
+      const { [payload]: deletedRun, ...otherRuns } = state.byId
       return {
         ...state,
-        allIds: state.allIds(runId => runId !== deletedRun.id),
+        allIds: state.allIds.filter(runId => runId !== deletedRun.id),
         byId: otherRuns
       }
     case SWITCH_RUN:

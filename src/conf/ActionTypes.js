@@ -32,3 +32,6 @@ export const FINISH_CARD = 'FINISH_CARD'
 
 // run list
 export const SWITCH_RUN = 'SWITCH_RUN'
+export const GRADE_CARD = 'GRADE_CARD'
+export const SET_CARD_DURATION = 'SET_CARD_DURATION'
+export const PICK_NEXT_CARD = 'PICK_NEXT_CARD'

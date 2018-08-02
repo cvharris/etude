@@ -18,3 +18,6 @@ export default (state = initialState, action) => {
       return state
   }
 }
+
+// Selectors
+export const currentDeckId = state => state.sidebar.activeDeckId

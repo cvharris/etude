@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import FlashCardEditor from '../containers/FlashCardEditor'
 import FlashCardList from '../containers/FlashCardList'
 import Sidebar from '../containers/Sidebar'
-import PracticeRuns from './PracticeRuns'
+import PracticeRunner from './PracticeRunner'
 import RunSummary from './RunSummary'
+import RunSummaryList from './RunSummaryList'
 
 export default class Etude extends Component {
   state = {
@@ -11,7 +12,7 @@ export default class Etude extends Component {
     activeTag: 'all',
     currentlyEditing: null,
     activeRun: null,
-    currentView: 'cards'
+    currentView: 'runner'
   }
 
   constructor(props) {
@@ -95,8 +96,14 @@ export default class Etude extends Component {
       return (
         <div id="etude" className="avenir vh-100 overflow-hidden">
           <Sidebar switchView={this.switchView} currentView={currentView} />
-          <PracticeRuns />
+          <RunSummaryList switchView={this.switchView} />
           <RunSummary activeRun={activeRun} />
+        </div>
+      )
+    } else if (currentView === 'practice') {
+      return (
+        <div className="avenir vh-100 overflow-hidden">
+          <PracticeRunner closeSession={this.switchView} />
         </div>
       )
     }
