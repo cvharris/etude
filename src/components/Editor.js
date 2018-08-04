@@ -20,7 +20,7 @@ export default class Editor extends Component {
     this.onInput()
   }
 
-  emitChange = e => {
+  emitChange = () => {
     this.props.handleUpdate(this.textAreaEl.value)
   }
 

@@ -1,30 +1,29 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import FlashCardEditor from '../containers/FlashCardEditor'
-import FlashCardList from '../containers/FlashCardList'
-import Sidebar from '../containers/Sidebar'
+import { connect } from 'react-redux'
+import TooltipProvider from '../components/tooltips/TooltipProvider'
+import { switchView } from '../reducers/nav'
+import FlashCardEditor from './FlashCardEditor'
+import FlashCardList from './FlashCardList'
 import PracticeRunner from './PracticeRunner'
 import RunSummary from './RunSummary'
 import RunSummaryList from './RunSummaryList'
+import Sidebar from './Sidebar'
 
-export default class Etude extends Component {
+class Etude extends Component {
+  static propTypes = {
+    currentView: PropTypes.string,
+    switchView: PropTypes.func
+  }
+
   state = {
     flashCards: [],
     activeTag: 'all',
     currentlyEditing: null,
-    activeRun: null,
-    currentView: 'runner'
+    activeRun: null
   }
 
-  constructor(props) {
-    super(props)
-
-    this.handleFlashCardUpdates = this.handleFlashCardUpdates.bind(this)
-    this.filterFlashCards = this.filterFlashCards.bind(this)
-    this.handleAddNewCard = this.handleAddNewCard.bind(this)
-    this.handleSwitchCard = this.handleSwitchCard.bind(this)
-  }
-
-  handleFlashCardUpdates(flashCard) {
+  handleFlashCardUpdates = flashCard => {
     const found = this.state.flashCards.filter(card => card.id === flashCard.id)
 
     if (!found.length) {
@@ -50,21 +49,21 @@ export default class Etude extends Component {
     }
   }
 
-  handleAddNewCard() {
+  handleAddNewCard = () => {
     this.setState({
       ...this.state,
       currentlyEditing: null
     })
   }
 
-  handleSwitchCard(flashCard) {
+  handleSwitchCard = flashCard => {
     this.setState({
       ...this.state,
       currentlyEditing: flashCard
     })
   }
 
-  filterFlashCards(newList) {
+  filterFlashCards = newList => {
     if (this.state.activeTag === 'all') {
       return newList
     }
@@ -74,38 +73,45 @@ export default class Etude extends Component {
     )
   }
 
-  switchView = view => {
-    this.setState({
-      ...this.state,
-      currentView: view
-    })
-  }
-
   render() {
-    const { currentlyEditing, currentView, activeRun } = this.state
+    const { currentlyEditing, activeRun } = this.state
+    const { switchView, currentView } = this.props
 
     if (currentView === 'cards') {
       return (
-        <div id="etude" className="avenir vh-100 overflow-hidden">
-          <Sidebar switchView={this.switchView} currentView={currentView} />
+        <div id="etude" className="avenir vh-100 overflow-hidden relative z-1">
+          <Sidebar switchView={switchView} currentView={currentView} />
           <FlashCardList />
           <FlashCardEditor activeFlashCard={currentlyEditing} />
+          <TooltipProvider />
         </div>
       )
     } else if (currentView === 'runner') {
       return (
         <div id="etude" className="avenir vh-100 overflow-hidden">
-          <Sidebar switchView={this.switchView} currentView={currentView} />
-          <RunSummaryList switchView={this.switchView} />
+          <Sidebar switchView={switchView} currentView={currentView} />
+          <RunSummaryList switchView={switchView} />
           <RunSummary activeRun={activeRun} />
+          <TooltipProvider />
         </div>
       )
     } else if (currentView === 'practice') {
       return (
         <div className="avenir vh-100 overflow-hidden">
-          <PracticeRunner closeSession={this.switchView} />
+          <PracticeRunner closeSession={switchView} />
+          <TooltipProvider />
         </div>
       )
     }
   }
 }
+
+export default connect(
+  state => ({
+    tooltipClosed: !state.tooltips.whichTooltip,
+    currentView: state.nav.currentView
+  }),
+  {
+    switchView
+  }
+)(Etude)
