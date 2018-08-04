@@ -35,3 +35,8 @@ export const SWITCH_RUN = 'SWITCH_RUN'
 export const GRADE_CARD = 'GRADE_CARD'
 export const SET_CARD_DURATION = 'SET_CARD_DURATION'
 export const PICK_NEXT_CARD = 'PICK_NEXT_CARD'
+
+// tooltips
+export const SHOW_TOOLTIP = 'SHOW_TOOLTIP'
+export const HIDE_TOOLTIP = 'HIDE_TOOLTIP'
+export const NEW_PRACTICE = 'NEW_PRACTICE'
