@@ -39,6 +39,20 @@ class PracticeRunner extends Component {
     this.getNextCard()
   }
 
+  componentWillUnmount() {
+    if (this.cardTimer) {
+      clearInterval(this.cardTimer)
+    }
+    this.cardTimer = null
+    this.setState({
+      currentCard: null,
+      flipped: false,
+      cardStart: null,
+      secondsElapsed: 0,
+      viewingBack: false
+    })
+  }
+
   getNextCard = () => {
     if (!this.props.thisRun.unpracticedCardIds.length) {
       this.setState({
@@ -47,7 +61,7 @@ class PracticeRunner extends Component {
         currentCard: null
       })
     } else {
-      const nextCard = this.props.thisRun.inOrder
+      const nextCard = this.props.thisRun.randomOrder
         ? this.props.cardsById[this.props.thisRun.unpracticedCardIds[0]]
         : this.props.cardsById[this.chooseRandomCard()]
       this.setState({

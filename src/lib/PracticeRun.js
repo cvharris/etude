@@ -6,7 +6,8 @@ export default class PracticeRun {
     this.id = v4()
     this.title = ''
     this.startDate = new Date()
-    this.inOrder = false
+    this.randomOrder = true
+    this.showTimer = true
     this.endDate = null
     this.deckId = ''
     this.allCardIds = []

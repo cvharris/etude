@@ -3,44 +3,21 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RunListItem from '../components/RunListItem'
-import PracticeRun from '../lib/PracticeRun'
-import { getCurrentDeck } from '../reducers/decks'
-import { getDecksCards } from '../reducers/flashCards'
-import { startRun } from '../reducers/practiceRun'
-import {
-  allRuns,
-  createRun,
-  deleteRun,
-  switchRun
-} from '../reducers/practiceRuns'
+import { NEW_PRACTICE } from '../conf/ActionTypes'
+import { allRuns, deleteRun, switchRun } from '../reducers/practiceRuns'
+import { openTooltip } from '../reducers/tooltips'
 
 class RunSummaryList extends Component {
   static propTypes = {
     runs: PropTypes.array,
     selectedRunId: PropTypes.string,
-    deckToPractice: PropTypes.object,
-    cardsToPractice: PropTypes.array,
     switchRun: PropTypes.func,
-    createRun: PropTypes.func,
-    startRun: PropTypes.func,
-    switchView: PropTypes.func,
-    deleteRun: PropTypes.func
+    deleteRun: PropTypes.func,
+    openTooltip: PropTypes.func
   }
 
   openCreateNewRunModal = () => {
-    const {
-      createRun,
-      startRun,
-      switchView,
-      deckToPractice,
-      cardsToPractice
-    } = this.props
-    const newPractice = new PracticeRun()
-    newPractice.deck = deckToPractice
-    newPractice.cards = cardsToPractice
-    createRun(newPractice)
-    startRun(newPractice)
-    switchView('practice')
+    this.props.openTooltip(NEW_PRACTICE, this.menuTarget, 'bottom center')
   }
 
   render() {
@@ -52,6 +29,7 @@ class RunSummaryList extends Component {
           {/* TODO: filters */}
           <div
             className="pointer gray hover-dark-gray pv2 ph3"
+            ref={e => (this.menuTarget = e)}
             onClick={() => this.openCreateNewRunModal()}
           >
             <FontAwesomeIcon icon="stopwatch" />
@@ -76,14 +54,11 @@ class RunSummaryList extends Component {
 export default connect(
   state => ({
     runs: allRuns(state),
-    selectedRunId: state.practiceRuns.selectedRunId,
-    deckToPractice: getCurrentDeck(state),
-    cardsToPractice: getDecksCards(state)
+    selectedRunId: state.practiceRuns.selectedRunId
   }),
   {
     switchRun,
     deleteRun,
-    startRun,
-    createRun
+    openTooltip
   }
 )(RunSummaryList)

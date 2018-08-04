@@ -5,9 +5,11 @@ import thunk from 'redux-thunk'
 import decks from '../reducers/decks'
 import flashCardEditor from '../reducers/flashCardEditor'
 import flashCards from '../reducers/flashCards'
+import nav from '../reducers/nav'
 import practiceRun from '../reducers/practiceRun'
 import practiceRuns from '../reducers/practiceRuns'
 import sidebar from '../reducers/sidebar'
+import tooltips from '../reducers/tooltips'
 import { saveState } from './localStorage'
 
 const configureStore = persistedState => {
@@ -18,7 +20,9 @@ const configureStore = persistedState => {
       sidebar,
       decks,
       practiceRun,
-      practiceRuns
+      practiceRuns,
+      tooltips,
+      nav
     }),
     persistedState,
     composeWithDevTools(applyMiddleware(thunk))
