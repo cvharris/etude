@@ -1,8 +1,6 @@
 // flash card editor
-export const UPDATE_FRONT_RAW = 'UPDATE_FRONT_RAW'
-export const UPDATE_BACK_RAW = 'UPDATE_BACK_RAW'
-export const UPDATE_FRONT_RENDERED = 'UPDATE_FRONT_RENDERED'
-export const UPDATE_BACK_RENDERED = 'UPDATE_BACK_RENDERED'
+export const UPDATE_FRONT = 'UPDATE_FRONT'
+export const UPDATE_BACK = 'UPDATE_BACK'
 export const UPDATE_CARD_DECK = 'UPDATE_CARD_DECK'
 export const UPDATE_DIFFICULTY = 'UPDATE_DIFFICULTY'
 export const UPDATE_NEED = 'UPDATE_NEED'
@@ -22,3 +20,23 @@ export const UPDATE_DECK = 'UPDATE_DECK'
 
 // sidebar
 export const CHANGE_DECK = 'CHANGE_DECK'
+export const SWITCH_VIEW = 'SWITCH_VIEW'
+
+// practice runner
+export const CREATE_RUN = 'CREATE_RUN'
+export const START_RUN = 'START_RUN'
+export const END_RUN = 'END_RUN'
+export const UPDATE_RUN = 'UPDATE_RUN'
+export const DELETE_RUN = 'DELETE_RUN'
+export const FINISH_CARD = 'FINISH_CARD'
+
+// run list
+export const SWITCH_RUN = 'SWITCH_RUN'
+export const GRADE_CARD = 'GRADE_CARD'
+export const SET_CARD_DURATION = 'SET_CARD_DURATION'
+export const PICK_NEXT_CARD = 'PICK_NEXT_CARD'
+
+// tooltips
+export const SHOW_TOOLTIP = 'SHOW_TOOLTIP'
+export const HIDE_TOOLTIP = 'HIDE_TOOLTIP'
+export const NEW_PRACTICE = 'NEW_PRACTICE'

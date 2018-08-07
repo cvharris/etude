@@ -1,10 +1,6 @@
-import { createSelector } from 'reselect'
-import {
-  ADD_DECK,
-  DELETE_DECK,
-  RESTORE_CARD,
-  UPDATE_DECK
-} from '../conf/ActionTypes'
+import { createSelector } from 'reselect';
+import { ADD_DECK, DELETE_DECK, RESTORE_CARD, UPDATE_DECK } from '../conf/ActionTypes';
+import { currentDeckId } from './sidebar';
 
 export const createDeck = newDeck => ({ type: ADD_DECK, payload: newDeck })
 export const updateDeck = revisedDeck => ({
@@ -58,7 +54,6 @@ export default function(state = initialState, action) {
 // Selectors
 const allDecks = state =>
   state.decks.allIds.map(deckId => state.decks.byId[deckId])
-const currentDeckId = state => state.sidebar.activeDeckId
 
 export const getActiveDecks = createSelector([allDecks], decks =>
   decks.filter(deck => !deck.isTrashed)

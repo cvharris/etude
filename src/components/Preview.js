@@ -1,20 +1,13 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import Markdown from '../lib/markdown'
+import md from '../lib/markdown'
 
 const textFit = window.textFit
 
 export default class Preview extends Component {
   static propTypes = {
     rawText: PropTypes.string,
-    hidden: PropTypes.bool,
-    onRender: PropTypes.func
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.md = new Markdown()
+    hidden: PropTypes.bool
   }
 
   shouldComponentUpdate(nextProps) {
@@ -33,7 +26,6 @@ export default class Preview extends Component {
       alignHoriz: true,
       alignVert: true
     })
-    this.props.onRender(this.md.render(this.props.rawText))
   }
 
   componentDidUpdate() {
@@ -41,16 +33,11 @@ export default class Preview extends Component {
       alignHoriz: true,
       alignVert: true
     })
-    this.props.onRender(this.md.render(this.props.rawText))
-  }
-
-  componentWillUnmount() {
-    this.props.onRender(this.md.render(this.props.rawText))
   }
 
   render() {
     const { rawText, hidden } = this.props
-    const rendered = this.md.render(rawText)
+    const rendered = md.render(rawText)
 
     return (
       <div className={hidden ? 'clip' : ''}>

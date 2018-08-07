@@ -25,12 +25,14 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.isStoreLoading) {
+    const { isStoreLoading, store } = this.state
+
+    if (isStoreLoading) {
       return <div>Loading...</div>
     }
 
     return (
-      <Provider store={this.state.store}>
+      <Provider store={store}>
         <Etude />
       </Provider>
     )

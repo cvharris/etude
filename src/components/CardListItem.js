@@ -18,12 +18,8 @@ export default function CardListItem({
           }`}
           onClick={() => handleSelect(card)}
         >
-          {card.front.rawText && (
-            <p className="mt0 mb1 pb1 truncate">{card.front.rawText}</p>
-          )}
-          {card.back.rawText && (
-            <p className="mv0 pt1 truncate">{card.back.rawText}</p>
-          )}
+          {card.front && <p className="mt0 mb1 pb1 truncate">{card.front}</p>}
+          {card.back && <p className="mv0 pt1 truncate">{card.back}</p>}
         </div>
         {card.isTrashed && (
           <div

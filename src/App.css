@@ -163,3 +163,7 @@ textarea {
 .z--1 {
   z-index: -1;
 }
+
+.flex-100 {
+  flex: 1 1 100%;
+}
