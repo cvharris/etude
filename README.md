@@ -25,8 +25,8 @@ I made this app while studying for the GMAT to help me generate physical flash c
 - [x] Organize cards into decks
 - [x] Set Difficulty of a flash card
 - [x] Set whether you are familiar with the card yet or not
-- [ ] Practice one or more decks with a timer with the built-in Runner UI
-- [ ] When practicing cards, indicate whether you knew the answer when card flipped
+- [x] Practice one or more decks with a timer with the built-in Runner UI
+- [x] When practicing cards, indicate whether you knew the answer when card flipped
 - [ ] Track analytics on runs: time per card, which you knew, overall time, etc.
 - [ ] Replace Markdown-It with custom in-place editor, like Bear
 
