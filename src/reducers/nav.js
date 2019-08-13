@@ -3,7 +3,7 @@ import { SWITCH_VIEW } from '../conf/ActionTypes'
 export const switchView = view => ({ type: SWITCH_VIEW, payload: view })
 
 export const initialState = {
-  currentView: 'runner'
+  currentView: 'cards' // 'runner'
 }
 
 export default (state = initialState, action) => {

@@ -13,7 +13,7 @@ class RunSummary extends Component {
 
   render() {
     const { currentRun, currentDeck } = this.props
-    if (!currentRun) {
+    if (!currentRun && !!currentDeck) {
       return (
         <div id="editor">
           <div className="center tc">
